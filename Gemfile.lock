@@ -87,3 +87,6 @@ DEPENDENCIES
   jekyll-plantuml (~> 1.1)
   rake-jekyll (~> 1.0)
   travis
+
+BUNDLED WITH
+   1.12.3
