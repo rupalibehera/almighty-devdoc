@@ -83,10 +83,7 @@ DEPENDENCIES
   asciidoctor (~> 1.5)
   asciidoctor-diagram
   coderay (= 1.1.0)
-  jekyll
+  jekyll (~> 3.0)
   jekyll-plantuml (~> 1.1)
   rake-jekyll (~> 1.0)
   travis
-
-BUNDLED WITH
-   1.12.3
