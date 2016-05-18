@@ -21,29 +21,31 @@
     <link rel="stylesheet" href="../css/font-awesome.css"/>
     <link rel="stylesheet" href="../css/coderay.css"/>
     <link rel="stylesheet" href="../css/asciidoctor.css"/>
-<!--
-    <script src="/js/vendor/modernizr.js"></script>
-    <script src="/js/toc.js"></script>
--->
+
+    <style>
+        html {
+            overflow-y: scroll;
+        }
+    </style>
 </head>
 <body>
 
 
 <!-- Nav Bar -->
 
-<nav class="top-bar" data-topbar>
-    <ul class="title-area">
-        <!-- Title Area -->
-        <li class="name">
-            <h1>
-                <a href="..">
-                    Home
-                </a>
-            </h1>
-        </li>
-        <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
-    </ul>
-</nav>
+<div class="top-bar">
+    <div class="top-bar-left">
+        <ul class="menu">
+            <li class="menu-text">almighty</li>
+        </ul>
+    </div>
+    <div class="top-bar-right">
+       <ul class="menu">
+           <li><a href="../meetings/agendas.html">meetings</a></li>
+           <li><a href="../">home</a></li>
+       </ul>
+    </div>
+</div>
 <!-- End Nav -->
 
 <!-- Main Page Content and Sidebar -->
@@ -71,18 +73,31 @@
 
     <aside class="large-3 columns">
 
-        <div class="panel">
-            <h5>Blueprints</h5>
+        <h5>About</h5>
 
-            
-                <a href="../blueprints/design_overview.html">Design_overview</a><br/>
-            
-                <a href="../blueprints/test.html">Test</a><br/>
-            
-        </div>
-        <div class="right">
-            <a href="https://github.com/ALMighty/almighty-devdoc/edit/master/_blueprints/design_overview.adoc">Edit</a>
-        </div>
+        <p>ALMighty is about providing tools for planning and
+    execution of an idea to production in a highly distributed team. Part of Red Hat Developers
+    Group.</p>
+
+        <h5>Blueprints</h5>
+        <ul>
+        
+            <li>
+                <a href="../blueprints/design_overview.html">Design_overview</a>
+            </li>
+        
+            <li>
+                <a href="../blueprints/test.html">Test</a>
+            </li>
+        
+        </ul>
+
+        <h6>Actions</h6>
+        <ul>
+            <li>
+                <a href="https://github.com/ALMighty/almighty-devdoc/edit/master/_blueprints/design_overview.adoc">Edit</a>
+            </li>
+        </ul>
     </aside>
 
     <!-- End Sidebar -->
@@ -103,20 +118,10 @@
     </div>
 </footer>
 
-<!--
-<script src="..js/vendor/jquery.js"></script>
-<script src="..js/foundation.min.js"></script>
-<script>
-    $(document).foundation();
-</script>
-<script src="..js/vendor/jquery.js"></script>
-<script src="..js/foundation/foundation.js"></script>
-<script>
-    $(document).foundation();
 
-    var doc = document.documentElement;
-    doc.setAttribute('data-useragent', navigator.userAgent);
-</script>
--->
+<script src="../js/vendor/jquery.js"></script>
+<script src="../js/vendor/foundation.js"></script>
+<script src="../js/app.js"></script>
+
 </body>
 </html>
