@@ -1,0 +1,186 @@
+
+
+
+<!doctype html>
+<!--[if IE 9]>
+<html class="lt-ie10" lang="en"> <![endif]-->
+<html class="no-js" lang="en" data-useragent="Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Scheduler</title>
+
+
+    <meta name="description"
+          content="Update what your Blog is about in this section"/>
+
+    <meta name="author" content="Your name goes here"/>
+    <meta name="copyright" content="Maybe consider a Creative Commons license"/>
+
+    <link rel="stylesheet" href="../css/foundation.css"/>
+    <link rel="stylesheet" href="../css/font-awesome.css"/>
+    <link rel="stylesheet" href="../css/coderay.css"/>
+    <link rel="stylesheet" href="../css/asciidoctor.css"/>
+
+    <style>
+        html {
+            overflow-y: scroll;
+        }
+    </style>
+</head>
+<body>
+
+
+<!-- Nav Bar -->
+
+<div class="top-bar">
+    <div class="top-bar-left">
+        <ul class="menu">
+            <li class="menu-text">almighty</li>
+        </ul>
+    </div>
+    <div class="top-bar-right">
+       <ul class="menu">
+           <li><a href="../meetings/agendas.html">meetings</a></li>
+           <li><a href="../">home</a></li>
+       </ul>
+    </div>
+</div>
+<!-- End Nav -->
+
+<!-- Main Page Content and Sidebar -->
+
+<div class="row">
+    <!-- Main Blog Content -->
+    <div class="large-9 columns" role="content">
+
+        <div class="sect1">
+<h2 id="scheduler">Scheduler</h2>
+<div class="sectionbody">
+<div class="imageblock">
+<div class="content">
+<img src="scheduler-protocol.png" alt="scheduler protocol" width="408" height="273">
+</div>
+</div>
+<div class="sect2">
+<h3 id="key_features">Key features</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Time based callbacks</p>
+</li>
+<li>
+<p>Interval</p>
+</li>
+<li>
+<p>'Global' system database</p>
+</li>
+<li>
+<p>REST interface</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="usage_area">Usage area</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Update of external issues</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Schedule</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="json">{
+        <span class="key"><span class="delimiter">&quot;</span><span class="content">trigger</span><span class="delimiter">&quot;</span></span>: {
+                <span class="key"><span class="delimiter">&quot;</span><span class="content">interval</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">30m</span><span class="delimiter">&quot;</span></span>
+        },
+        <span class="key"><span class="delimiter">&quot;</span><span class="content">target</span><span class="delimiter">&quot;</span></span>: {
+                <span class="key"><span class="delimiter">&quot;</span><span class="content">url</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">http://registrar.org/api/batch_update</span><span class="delimiter">&quot;</span></span>,
+                <span class="key"><span class="delimiter">&quot;</span><span class="content">body</span><span class="delimiter">&quot;</span></span>: {
+                        <span class="key"><span class="delimiter">&quot;</span><span class="content">auth_key</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">xyzd</span><span class="delimiter">&quot;</span></span>,
+                        <span class="key"><span class="delimiter">&quot;</span><span class="content">query</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">project = 'a'</span><span class="delimiter">&quot;</span></span>
+                }
+        }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">InvokeSchedule GET <a href="http://registrar.org/api/batch_update" class="bare">http://registrar.org/api/batch_update</a></div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="json">{
+        <span class="key"><span class="delimiter">&quot;</span><span class="content">auth_key</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">xyzd</span><span class="delimiter">&quot;</span></span>,
+        <span class="key"><span class="delimiter">&quot;</span><span class="content">query</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">project = 'a'</span><span class="delimiter">&quot;</span></span>
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+    </div>
+
+    <!-- End Main Content -->
+
+    <!-- Sidebar -->
+
+    <aside class="large-3 columns">
+
+        <h5>About</h5>
+
+        <p>ALMighty is about providing tools for planning and
+    execution of an idea to production in a highly distributed team. Part of Red Hat Developers
+    Group.</p>
+
+        <h5>Blueprints</h5>
+        <ul>
+        
+            <li>
+                <a href="../blueprints/design_overview.html">Design_overview</a>
+            </li>
+        
+            <li>
+                <a href="../blueprints/scheduler.html">Scheduler</a>
+            </li>
+        
+            <li>
+                <a href="../blueprints/test.html">Test</a>
+            </li>
+        
+        </ul>
+
+        <h6>Actions</h6>
+        <ul>
+            <li>
+                <a href="https://github.com/ALMighty/almighty-devdoc/edit/master/_blueprints/scheduler.adoc">Edit</a>
+            </li>
+        </ul>
+    </aside>
+
+    <!-- End Sidebar -->
+</div>
+
+<!-- End Main Content and Sidebar -->
+
+<!-- Footer -->
+
+<footer class="row">
+    <div class="large-12 columns">
+        <hr/>
+        <div class="row">
+            <div class="large-12 columns">
+                <p>This is a work in progress.</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+<script src="../js/vendor/jquery.js"></script>
+<script src="../js/vendor/foundation.js"></script>
+<script src="../js/app.js"></script>
+
+</body>
+</html>
