@@ -57,60 +57,9 @@
         <div class="sect1">
 <h2 id="design_overview">Design Overview</h2>
 <div class="sectionbody">
-<div class="listingblock">
+<div class="imageblock">
 <div class="content">
-<pre>Failed to generate image: Could not find the 'blockdiag' executable in PATH; add it to the PATH or specify its location using the 'blockdiag' document attribute
-blockdiag {
-
-    USER -&gt; C_MAIL, C_WEB, C_CLI, C_DESKTOP, C_MOBILE
-
-    group input {
-        label = "Clients"
-        color = "#ddd"
-        C_MAIL, C_WEB, C_CLI, C_DESKTOP, C_MOBILE
-    }
-
-    group alm {
-        label = "ALM"
-        color = "#fff"
-        style = dotted
-
-        API, MODEL, DATASTORE
-
-        group alm_collector {
-            color = "#f00"
-            label = "ALM Collector"
-            DATA_COLLECTOR, MODEL_TRANS, ASYNC, SYNC
-        }
-    }
-
-    group remote {
-        label = "Remote"
-
-        REMOTE_DATA
-    }
-
-    C_MAIL, C_WEB, C_CLI, C_DESKTOP, C_MOBILE -&gt; API
-
-    API -&gt; MODEL
-
-    MODEL -&gt; DATASTORE
-    MODEL_TRANS -&gt; MODEL
-
-    API -&gt; DATA_COLLECTOR [folded]
-
-    DATA_COLLECTOR -&gt; ASYNC
-    DATA_COLLECTOR -&gt; SYNC
-
-    SYNC &lt;-&gt; REMOTE_DATA[folded]
-    ASYNC &lt;- REMOTE_DATA[folded]
-    SYNC, ASYNC -&gt; MODEL_TRANS
-
-    USER [shape = actor]
-    MODEL [label = "ALM Model"]
-    API [label = "ALM API"]
-    DATASTORE [shape = flowchart.database]
-}</pre>
+<img src="do.svg" alt="do" width="1408" height="520">
 </div>
 </div>
 </div>
