@@ -1,0 +1,212 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<svg viewBox="0 0 1408 520" xmlns="http://www.w3.org/2000/svg" xmlns:inkspace="http://www.inkscape.org/namespaces/inkscape" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs id="defs_block">
+    <filter height="1.504" id="filter_blur" inkspace:collect="always" width="1.1575" x="-0.07875" y="-0.252">
+      <feGaussianBlur id="feGaussianBlur3780" inkspace:collect="always" stdDeviation="4.2" />
+    </filter>
+  </defs>
+  <title>blockdiag</title>
+  <desc>blockdiag {
+
+    USER -&gt; C_MAIL, C_WEB, C_CLI, C_DESKTOP, C_MOBILE
+
+    group input {
+        label = "Clients"
+        color = "#ddd"
+        C_MAIL, C_WEB, C_CLI, C_DESKTOP, C_MOBILE
+    }
+
+    group alm {
+        label = "ALM"
+        color = "#fff"
+        style = dotted
+
+        API, MODEL, DATASTORE
+
+        group alm_collector {
+            color = "#f00"
+            label = "ALM Collector"
+            DATA_COLLECTOR, MODEL_TRANS, ASYNC, SYNC
+        }
+    }
+
+    group remote {
+        label = "Remote"
+
+        REMOTE_DATA
+    }
+
+    C_MAIL, C_WEB, C_CLI, C_DESKTOP, C_MOBILE -&gt; API
+
+    API -&gt; MODEL
+
+    MODEL -&gt; DATASTORE
+    MODEL_TRANS -&gt; MODEL
+
+    API -&gt; DATA_COLLECTOR [folded]
+
+    DATA_COLLECTOR -&gt; ASYNC
+    DATA_COLLECTOR -&gt; SYNC
+
+    SYNC &lt;-&gt; REMOTE_DATA[folded]
+    ASYNC &lt;- REMOTE_DATA[folded]
+    SYNC, ASYNC -&gt; MODEL_TRANS
+
+    USER [shape = actor]
+    MODEL [label = "ALM Model"]
+    API [label = "ALM API"]
+    DATASTORE [shape = flowchart.database]
+}</desc>
+  <rect fill="rgb(221,221,221)" height="380" style="filter:url(#filter_blur)" width="144" x="248" y="30" />
+  <rect fill="rgb(255,255,255)" height="220" style="filter:url(#filter_blur)" width="912" x="440" y="30" />
+  <rect fill="rgb(255,0,0)" height="140" style="filter:url(#filter_blur)" width="528" x="440" y="110" />
+  <rect fill="rgb(243,152,0)" height="60" style="filter:url(#filter_blur)" width="144" x="56" y="430" />
+  <polygon fill="rgb(0,0,0)" points="133,60 133,63 143,63 143,66 133,66 133,69 141,78 137,78 131,72 125,78 121,78 129,69 129,66 119,66 119,63 129,63 129,60" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" />
+  <ellipse cx="131" cy="57" fill="rgb(0,0,0)" rx="4" ry="4" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" />
+  <rect fill="rgb(0,0,0)" height="40" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="128" x="259" y="46" />
+  <rect fill="rgb(0,0,0)" height="40" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="128" x="259" y="126" />
+  <rect fill="rgb(0,0,0)" height="40" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="128" x="259" y="206" />
+  <rect fill="rgb(0,0,0)" height="40" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="128" x="259" y="286" />
+  <rect fill="rgb(0,0,0)" height="40" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="128" x="259" y="366" />
+  <rect fill="rgb(0,0,0)" height="40" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="128" x="451" y="46" />
+  <rect fill="rgb(0,0,0)" height="40" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="128" x="451" y="126" />
+  <rect fill="rgb(0,0,0)" height="40" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="128" x="835" y="126" />
+  <rect fill="rgb(0,0,0)" height="40" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="128" x="643" y="126" />
+  <rect fill="rgb(0,0,0)" height="40" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="128" x="643" y="206" />
+  <rect fill="rgb(0,0,0)" height="40" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="128" x="1027" y="46" />
+  <path d="M 1219 54 A64,8 0 0 1 1347 54 L 1347 78 A64,8 0 0 1 1219 78 L 1219 54" fill="rgb(0,0,0)" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" />
+  <rect fill="rgb(0,0,0)" height="40" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="128" x="67" y="446" />
+  <polygon fill="rgb(255,255,255)" points="130,54 130,57 140,57 140,60 130,60 130,63 138,72 134,72 128,66 122,72 118,72 126,63 126,60 116,60 116,57 126,57 126,54" stroke="rgb(0,0,0)" />
+  <ellipse cx="128" cy="51" fill="rgb(255,255,255)" rx="4" ry="4" stroke="rgb(0,0,0)" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="28" x="128" y="84">USER</text>
+  <rect fill="rgb(255,255,255)" height="40" stroke="rgb(0,0,0)" width="128" x="256" y="40" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="40" x="320" y="66">C_MAIL</text>
+  <rect fill="rgb(255,255,255)" height="40" stroke="rgb(0,0,0)" width="128" x="256" y="120" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="38" x="320" y="146">C_WEB</text>
+  <rect fill="rgb(255,255,255)" height="40" stroke="rgb(0,0,0)" width="128" x="256" y="200" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="31" x="320" y="226">C_CLI</text>
+  <rect fill="rgb(255,255,255)" height="40" stroke="rgb(0,0,0)" width="128" x="256" y="280" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="65" x="320" y="306">C_DESKTOP</text>
+  <rect fill="rgb(255,255,255)" height="40" stroke="rgb(0,0,0)" width="128" x="256" y="360" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="56" x="320" y="386">C_MOBILE</text>
+  <rect fill="rgb(255,255,255)" height="40" stroke="rgb(0,0,0)" width="128" x="448" y="40" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="43" x="512" y="65">ALM API</text>
+  <rect fill="rgb(255,255,255)" height="40" stroke="rgb(0,0,0)" width="128" x="448" y="120" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="102" x="512" y="146">DATA_COLLECTOR</text>
+  <rect fill="rgb(255,255,255)" height="40" stroke="rgb(0,0,0)" width="128" x="832" y="120" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="81" x="896" y="146">MODEL_TRANS</text>
+  <rect fill="rgb(255,255,255)" height="40" stroke="rgb(0,0,0)" width="128" x="640" y="120" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="36" x="704" y="145">ASYNC</text>
+  <rect fill="rgb(255,255,255)" height="40" stroke="rgb(0,0,0)" width="128" x="640" y="200" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="29" x="704" y="225">SYNC</text>
+  <rect fill="rgb(255,255,255)" height="40" stroke="rgb(0,0,0)" width="128" x="1024" y="40" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="59" x="1088" y="65">ALM Model</text>
+  <path d="M 1216 48 A64,8 0 0 1 1344 48 L 1344 72 A64,8 0 0 1 1216 72 L 1216 48" fill="rgb(255,255,255)" stroke="rgb(0,0,0)" />
+  <path d="M 1344 48 A64,8 0 0 1 1216 48" fill="rgb(255,255,255)" stroke="rgb(0,0,0)" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="65" x="1280" y="69">DATASTORE</text>
+  <rect fill="rgb(255,255,255)" height="40" stroke="rgb(0,0,0)" width="128" x="64" y="440" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="82" x="128" y="466">REMOTE_DATA</text>
+  <path d="M 140 60 L 224 60" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 224 60 L 224 300" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 224 300 L 248 300" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="255,300 248,296 248,304 255,300" stroke="rgb(0,0,0)" />
+  <path d="M 140 60 L 224 60" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 224 60 L 224 380" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 224 380 L 248 380" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="255,380 248,376 248,384 255,380" stroke="rgb(0,0,0)" />
+  <path d="M 140 60 L 248 60" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="255,60 248,56 248,64 255,60" stroke="rgb(0,0,0)" />
+  <path d="M 140 60 L 224 60" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 224 60 L 224 220" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 224 220 L 248 220" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="255,220 248,216 248,224 255,220" stroke="rgb(0,0,0)" />
+  <path d="M 140 60 L 224 60" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 224 60 L 224 140" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 224 140 L 248 140" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="255,140 248,136 248,144 255,140" stroke="rgb(0,0,0)" />
+  <path d="M 384 60 L 440 60" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="447,60 440,56 440,64 447,60" stroke="rgb(0,0,0)" />
+  <path d="M 384 140 L 432 140" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 432 140 L 432 60" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 432 60 L 440 60" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="447,60 440,56 440,64 447,60" stroke="rgb(0,0,0)" />
+  <path d="M 384 220 L 432 220" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 432 220 L 432 60" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 432 60 L 440 60" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="447,60 440,56 440,64 447,60" stroke="rgb(0,0,0)" />
+  <path d="M 384 300 L 432 300" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 432 300 L 432 60" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 432 60 L 440 60" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="447,60 440,56 440,64 447,60" stroke="rgb(0,0,0)" />
+  <path d="M 384 380 L 432 380" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 432 380 L 432 60" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 432 60 L 440 60" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="447,60 440,56 440,64 447,60" stroke="rgb(0,0,0)" />
+  <path d="M 512 80 L 512 112" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="512,119 508,112 516,112 512,119" stroke="rgb(0,0,0)" />
+  <path d="M 576 60 L 1016 60" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="1023,60 1016,56 1016,64 1023,60" stroke="rgb(0,0,0)" />
+  <path d="M 1152 60 L 1208 60" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="1215,60 1208,56 1208,64 1215,60" stroke="rgb(0,0,0)" />
+  <path d="M 576 140 L 632 140" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="639,140 632,136 632,144 639,140" stroke="rgb(0,0,0)" />
+  <path d="M 576 140 L 608 140" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 608 140 L 608 220" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 608 220 L 632 220" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="639,220 632,216 632,224 639,220" stroke="rgb(0,0,0)" />
+  <path d="M 960 140 L 1008 140" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 1008 140 L 1008 60" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 1008 60 L 1016 60" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="1023,60 1016,56 1016,64 1023,60" stroke="rgb(0,0,0)" />
+  <path d="M 776 140 L 800 140" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 800 140 L 800 420" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 128 420 L 800 420" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 128 420 L 128 440" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="769,140 776,136 776,144 769,140" stroke="rgb(0,0,0)" />
+  <path d="M 768 140 L 824 140" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="831,140 824,136 824,144 831,140" stroke="rgb(0,0,0)" />
+  <path d="M 704 248 L 704 420" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 128 420 L 704 420" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 128 420 L 128 432" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="704,241 700,248 708,248 704,241" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="128,439 124,432 132,432 128,439" stroke="rgb(0,0,0)" />
+  <path d="M 768 220 L 796 220" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 796.0 220.0 A4,4 0 0 1 804.0 220.0" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 804 220 L 816 220" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 816 220 L 816 140" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 816 140 L 824 140" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="831,140 824,136 824,144 831,140" stroke="rgb(0,0,0)" />
+  <path d="M 576 140 L 632 140" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="639,140 632,136 632,144 639,140" stroke="rgb(0,0,0)" />
+  <path d="M 576 140 L 608 140" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 608 140 L 608 220" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 608 220 L 632 220" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="639,220 632,216 632,224 639,220" stroke="rgb(0,0,0)" />
+  <path d="M 960 140 L 1008 140" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 1008 140 L 1008 60" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 1008 60 L 1016 60" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="1023,60 1016,56 1016,64 1023,60" stroke="rgb(0,0,0)" />
+  <path d="M 776 140 L 800 140" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 800 140 L 800 420" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 128 420 L 800 420" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 128 420 L 128 440" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="769,140 776,136 776,144 769,140" stroke="rgb(0,0,0)" />
+  <path d="M 768 140 L 824 140" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="831,140 824,136 824,144 831,140" stroke="rgb(0,0,0)" />
+  <path d="M 704 248 L 704 420" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 128 420 L 704 420" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 128 420 L 128 432" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="704,241 700,248 708,248 704,241" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="128,439 124,432 132,432 128,439" stroke="rgb(0,0,0)" />
+  <path d="M 768 220 L 796 220" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 796.0 220.0 A4,4 0 0 1 804.0 220.0" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 804 220 L 816 220" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 816 220 L 816 140" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 816 140 L 824 140" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="831,140 824,136 824,144 831,140" stroke="rgb(0,0,0)" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="36" x="320" y="35">Clients</text>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="23" x="896" y="35">ALM</text>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="75" x="704" y="115">ALM Collector</text>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="40" x="128" y="435">Remote</text>
+</svg>
