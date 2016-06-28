@@ -108,17 +108,17 @@
   <rect fill="rgb(255,255,255)" height="40" stroke="rgb(0,0,0)" width="128" x="64" y="440" />
   <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="82" x="128" y="466">REMOTE_DATA</text>
   <path d="M 140 60 L 224 60" fill="none" stroke="rgb(0,0,0)" />
-  <path d="M 224 60 L 224 220" fill="none" stroke="rgb(0,0,0)" />
-  <path d="M 224 220 L 248 220" fill="none" stroke="rgb(0,0,0)" />
-  <polygon fill="rgb(0,0,0)" points="255,220 248,216 248,224 255,220" stroke="rgb(0,0,0)" />
+  <path d="M 224 60 L 224 380" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 224 380 L 248 380" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="255,380 248,376 248,384 255,380" stroke="rgb(0,0,0)" />
   <path d="M 140 60 L 224 60" fill="none" stroke="rgb(0,0,0)" />
   <path d="M 224 60 L 224 300" fill="none" stroke="rgb(0,0,0)" />
   <path d="M 224 300 L 248 300" fill="none" stroke="rgb(0,0,0)" />
   <polygon fill="rgb(0,0,0)" points="255,300 248,296 248,304 255,300" stroke="rgb(0,0,0)" />
   <path d="M 140 60 L 224 60" fill="none" stroke="rgb(0,0,0)" />
-  <path d="M 224 60 L 224 380" fill="none" stroke="rgb(0,0,0)" />
-  <path d="M 224 380 L 248 380" fill="none" stroke="rgb(0,0,0)" />
-  <polygon fill="rgb(0,0,0)" points="255,380 248,376 248,384 255,380" stroke="rgb(0,0,0)" />
+  <path d="M 224 60 L 224 220" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 224 220 L 248 220" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="255,220 248,216 248,224 255,220" stroke="rgb(0,0,0)" />
   <path d="M 140 60 L 248 60" fill="none" stroke="rgb(0,0,0)" />
   <polygon fill="rgb(0,0,0)" points="255,60 248,56 248,64 255,60" stroke="rgb(0,0,0)" />
   <path d="M 140 60 L 224 60" fill="none" stroke="rgb(0,0,0)" />
