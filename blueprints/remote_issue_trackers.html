@@ -1,0 +1,693 @@
+
+
+
+<!doctype html>
+<!--[if IE 9]>
+<html class="lt-ie10" lang="en"> <![endif]-->
+<html class="no-js" lang="en" data-useragent="Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Remote Issue Trackers</title>
+
+
+    <meta name="description"
+          content="Update what your Blog is about in this section"/>
+
+    <meta name="author" content="Your name goes here"/>
+    <meta name="copyright" content="Maybe consider a Creative Commons license"/>
+
+    <link rel="stylesheet" href="../css/foundation.css"/>
+    <link rel="stylesheet" href="../css/font-awesome.css"/>
+    <link rel="stylesheet" href="../css/coderay.css"/>
+    <link rel="stylesheet" href="../css/asciidoctor.css"/>
+
+    <style>
+        html {
+            overflow-y: scroll;
+        }
+    </style>
+</head>
+<body>
+
+
+<!-- Nav Bar -->
+
+<div class="top-bar">
+    <div class="top-bar-left">
+        <ul class="menu">
+            <li class="menu-text">almighty</li>
+        </ul>
+    </div>
+    <div class="top-bar-right">
+       <ul class="menu">
+           <li><a href="../meetings/agendas.html">meetings</a></li>
+           <li><a href="../">home</a></li>
+       </ul>
+    </div>
+</div>
+<!-- End Nav -->
+
+<!-- Main Page Content and Sidebar -->
+
+<div class="row">
+    <!-- Main Blog Content -->
+    <div class="large-9 columns" role="content">
+
+        <h1>Remote Issue Trackers</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Overview of other issue trackers, their capabilities and golang support.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="golang-github-library-httpsgithub.comgooglego-github">GitHub Issues</h2>
+<div class="sectionbody">
+<div id="sync-calls" class="paragraph">
+<p>Sync Calls:</p>
+</div>
+<div class="paragraph">
+<p>This library lets you support asynchronous calls through channels.</p>
+</div>
+<div id="callback-support" class="paragraph">
+<p>Callback Support:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>According to the requirement of Planner the best way is to have
+Asynchronous requests.</p>
+</li>
+<li>
+<p>The Github Go library have a quite good support to do it through
+channels and function callback as well.</p>
+</li>
+</ul>
+</div>
+<div id="query" class="paragraph">
+<p>Query:</p>
+</div>
+<div class="paragraph">
+<p>The query passed is passed as “is:open is:issue user:arquillian
+author:aslakknutsen”</p>
+</div>
+<div id="individual-lookup" class="paragraph">
+<p>Individual Lookup:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>For Public repositories we don’t need any ID or key</p>
+</li>
+<li>
+<p>To access and query the Private repositories we will need the personal
+access token of the user and authenticate the application as explained
+further in the Auth section.</p>
+</li>
+</ul>
+</div>
+<div id="collect-sample-data" class="paragraph">
+<p>Collect Sample Data:</p>
+</div>
+<div class="paragraph">
+<p><a href="http://www.tegdesign.com/querying-github-api-golang-find-magento-repositories/" class="bare">http://www.tegdesign.com/querying-github-api-golang-find-magento-repositories/</a></p>
+</div>
+<div id="auth-models" class="paragraph">
+<p>Auth models:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>To use GitHub API from Go we can use github.com/google/go-github
+package. GitHub, like many other sites, uses OAuth 2.0 protocol for
+authentication. There are few packages for Go that implement OAuth. read
+this sample. Short intro to OAuth for GitHub</p>
+</li>
+<li>
+<p>To access private info about the user via the API in your web app you need to authenticate your
+app against GitHub website.</p>
+</li>
+<li>
+<p>First, you need to register your
+application with GitHub (under Developer applications). You provide
+description of the app, including a callback url (we’ll get back to
+that). GitHub creates client id and client secret that you’ll need to
+provide to OAuth libraries (and keep them secret).</p>
+</li>
+<li>
+<p>The flow of OAuth is: the user is on your website and clicks “login with GitHub” link you
+redirect the user to GitHub’s authorization page. In that url you
+specify desired access level and a random secret the user authorizes
+your app by clicking on a link GitHub redirects to a callback url on
+your website (which you provided when registering the app with GitHub)
+in the url handler, extract “secret” and “code” args you have to check
+that the secret is the same as the one you sent to GitHub (security
+measure that prevents forgery)</p>
+</li>
+<li>
+<p>you call another GitHub url to exchange
+code for access token Access token is what you use to authenticate your
+API calls.</p>
+</li>
+</ul>
+</div>
+<div id="auth-work-around" class="paragraph">
+<p>Auth work around</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="go"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td>
+  <td class="code"><pre><span class="keyword">func</span> main() {
+  ts := oauth2.StaticTokenSource(
+    &amp;oauth2.Token{AccessToken: <span class="string"><span class="delimiter">&quot;</span><span class="content">... your access token ...</span><span class="delimiter">&quot;</span></span>},
+  )
+  tc := oauth2.NewClient(oauth2.NoContext, ts)
+
+  client := github.NewClient(tc)
+
+  <span class="comment">// list all repositories for the authenticated user</span>
+  repos, _, err := client.Repositories.List(<span class="string"><span class="delimiter">&quot;</span><span class="delimiter">&quot;</span></span>, <span class="predefined-constant">nil</span>)
+}</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div id="auth-levels" class="paragraph">
+<p>Auth levels</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Auth</th>
+<th class="tableblock halign-left valign-top">Permissions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Public repo</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">can query without username or API key</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Private repo</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Need to authenticate App with personal access token</p></td>
+</tr>
+</tbody>
+</table>
+<div id="notes-on-callback-url" class="paragraph">
+<p>Notes on callback url</p>
+</div>
+<div class="paragraph">
+<p>callback url is defined when the ap is registered. This is a problem for
+testing, because your app might use different hosts for development or
+production. One option is to create different apps for testing and
+production, with different callback urls. OAuth protocol allows
+providing callback url as an argument when calling authorization page
+(and oauth2 library allows setting it as oauth2.Config.RedirectURL) but
+GitHub has restrictions and doesn’t allow changing host. Using personal
+access token If you want to access someone else’s GitHub info, you need
+to authorize your app with GitHub as described above. If you want to
+access your own account, you can generate a personal access token. For
+querying a public repository, no auth level is required</p>
+</div>
+<div id="required-auth-levels-for-different-interactions" class="paragraph">
+<p>Required auth levels for different interactions</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Query: for public repo no auth required, for private repos required</p>
+</li>
+<li>
+<p>Lookup: Same as querying but for repository app needs to authenticate
+the user</p>
+</li>
+<li>
+<p>Callback: Same as Query and lookup.</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="github-golang-libraries">Github Golang libraries</h3>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2858%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"></th>
+<th class="tableblock halign-left valign-top">Completeness</th>
+<th class="tableblock halign-left valign-top">Style</th>
+<th class="tableblock halign-left valign-top">Community</th>
+<th class="tableblock halign-left valign-top">Feature Support</th>
+<th class="tableblock halign-left valign-top">Auth Support</th>
+<th class="tableblock halign-left valign-top">Version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Go-Github
+<a href="https://github.com/google/go-github" class="bare">https://github.com/google/go-github</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Complete/Accomplish all functionalities which will be needed</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Object
+oriented</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1. <strong>last commit</strong> - on 8 July 2016
+2. <strong>Last Pull Request</strong> - on 10 July 2016
+3. <strong>Pull requests</strong>: 247
+4. <strong>No. of contributors</strong>: 95</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">All the important features are supported by the library and many are
+being added continuously</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OAuth2 is supported for Github library and
+the app needs to get registered with github.A description plus a
+callback url is needed</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No version</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="github-python-libraries">Github Python libraries</h3>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2858%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"></th>
+<th class="tableblock halign-left valign-top">Completeness</th>
+<th class="tableblock halign-left valign-top">Style</th>
+<th class="tableblock halign-left valign-top">Community</th>
+<th class="tableblock halign-left valign-top">Feature Support</th>
+<th class="tableblock halign-left valign-top">Auth Support</th>
+<th class="tableblock halign-left valign-top">Version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PyGithub
+<a href="https://github.com/PyGithub/PyGithub" class="bare">https://github.com/PyGithub/PyGithub</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Complete</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Object oriented</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1. <strong>last commit</strong> - on 8 July 2016
+2. <strong>Last Pull Request</strong> - on 8 July 2016
+3. <strong>Pull requests</strong>: 116
+4. <strong>No. of contributors</strong>: 60</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">All the important features are supported by the library and many are
+being added continuously</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OAuth2 is supported for Github library and
+the app needs to get registered with github.A description plus a
+callback url is needed</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">49</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="trello">Trello</h2>
+<div class="sectionbody">
+<div id="sync-calls-only" class="paragraph">
+<p>Sync calls only</p>
+</div>
+<div class="paragraph">
+<p>Go Library for trello supports Asynchronous calls through channels.</p>
+</div>
+<div id="callback-support-1" class="paragraph">
+<p>Callback support</p>
+</div>
+<div class="paragraph">
+<p>According to the requirements of application the best way is to have
+Asynchronous requests. And using go channels will solve this issue or
+function callback is also supported by the library.</p>
+</div>
+<div id="query-1" class="paragraph">
+<p>Query</p>
+</div>
+<div class="paragraph">
+<p>Query is given as the boardId and the list name we want to search.
+&gt;listName: ‘Epic Backlog’, &gt;boardId: ‘nlLwlKoz’</p>
+</div>
+<div id="individual-lookup-1" class="paragraph">
+<p>Individual lookup</p>
+</div>
+<div class="paragraph">
+<p>Lookup through API key can get all its related credentials as the query
+we have for a particular user for a boardId and a listName</p>
+</div>
+<div id="collect-sample-data-1" class="paragraph">
+<p>Collect sample data</p>
+</div>
+<div class="paragraph">
+<p>Doc for usage of Library
+<a href="https://godoc.org/github.com/VojtechVitek/go-trello" class="bare">https://godoc.org/github.com/VojtechVitek/go-trello</a></p>
+</div>
+<div id="auth-models-1" class="paragraph">
+<p>Auth models:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Using the Trello object, we need to authenticate the user. * This is
+done with the Trello.authenticate method. This method will automatically
+trigger the OAuth flow and return back a token. This token will be
+specific to your Application ID and the user who is executing the flow.</p>
+</li>
+<li>
+<p>It&#8217;s important to understand that the Authentication Token gives
+application the ability to make calls on behalf of your user, from their
+context. This token grants access to the authenticated user&#8217;s boards,
+lists, Cards, and other settings, depending on the permissions you
+requested in the authenticate method.</p>
+</li>
+</ul>
+</div>
+<div id="auth-work-around-1" class="paragraph">
+<p>Auth Work around</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="go"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+</pre></td>
+  <td class="code"><pre><span class="keyword">package</span> main
+
+<span class="keyword">import</span> (
+    <span class="string"><span class="delimiter">&quot;</span><span class="content">fmt</span><span class="delimiter">&quot;</span></span>
+    <span class="string"><span class="delimiter">&quot;</span><span class="content">log</span><span class="delimiter">&quot;</span></span>
+    <span class="string"><span class="delimiter">&quot;</span><span class="content">github.com/VojtechVitek/go-trello</span><span class="delimiter">&quot;</span></span>
+)
+
+<span class="keyword">func</span> main() {
+    <span class="comment">// New Trello Client</span>
+    appKey := <span class="string"><span class="delimiter">&quot;</span><span class="content">application-key</span><span class="delimiter">&quot;</span></span>
+    token := <span class="string"><span class="delimiter">&quot;</span><span class="content">token</span><span class="delimiter">&quot;</span></span>
+    trello, err := trello.NewAuthClient(appKey, &amp;token)
+    <span class="keyword">if</span> err != <span class="predefined-constant">nil</span> {
+        log.Fatal(err)
+    }
+
+    <span class="comment">// User @trello</span>
+    user, err := trello.Member(<span class="string"><span class="delimiter">&quot;</span><span class="content">trello</span><span class="delimiter">&quot;</span></span>)
+    <span class="keyword">if</span> err != <span class="predefined-constant">nil</span> {
+        log.Fatal(err)
+    }
+    fmt.Println(user.FullName)
+
+    <span class="comment">// @trello Boards</span>
+    boards, err := user.Boards()
+    <span class="keyword">if</span> err != <span class="predefined-constant">nil</span> {
+        log.Fatal(err)
+    }</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div id="auth-levels-1" class="paragraph">
+<p>Auth levels</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Auth</th>
+<th class="tableblock halign-left valign-top">Permissions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Public board</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Need Username</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Private board</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Need API key and token to authenticate</p></td>
+</tr>
+</tbody>
+</table>
+<div id="required-auth-levels-for-different-interactions-1" class="paragraph">
+<p>Required auth levels for different interactions</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Query : For querying public boards only username is needed. Other than
+that API key is needed</p>
+</li>
+<li>
+<p>Lookup : Same as Querying, API Key and token are needed for the
+private boards.</p>
+</li>
+<li>
+<p>Callback: Username, API key and token are needed.</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="trello-golang-libraries">Trello Golang libraries</h3>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2858%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"></th>
+<th class="tableblock halign-left valign-top">Completeness</th>
+<th class="tableblock halign-left valign-top">Style</th>
+<th class="tableblock halign-left valign-top">Community</th>
+<th class="tableblock halign-left valign-top">Feature Support</th>
+<th class="tableblock halign-left valign-top">Auth Support</th>
+<th class="tableblock halign-left valign-top">Version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">go-Trello
+<a href="https://github.com/VojtechVitek/go-trello" class="bare">https://github.com/VojtechVitek/go-trello</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Complete/Accomplish all functionalities which will be needed</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Object oriented</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1. <strong>last commit</strong> - on February 26
+2. <strong>last pull request</strong>- on february 28
+3. <strong>No. of contributors</strong>: 23 and 31 stars</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">All the important and needed functionalities are supported by this library</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">User Name is needed as the basic auth support other than that to access Private cards API Key is needed and as a Application perspective we need to authenticate the app with user’s API key and token.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">go-Trello
+<a href="https://github.com/octokit/go-octokit" class="bare">https://github.com/octokit/go-octokit</a>
+<a href="https://golanglibs.com/top?q=trello" class="bare">https://golanglibs.com/top?q=trello</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Complete</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Object oriented</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1. <strong>last commit</strong> - on February 26
+2. <strong>last pull request</strong>- on february 28
+3. <strong>No. of contributors</strong>: 23 and 31 stars</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">All the important and needed functionalities are supported by this library</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">User Name is needed as the basic auth support other than that to access Private cards API Key is needed and as a Application perspective we need to authenticate the app with user’s API key and token.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.1</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="trello-python-libraries">Trello Python libraries</h3>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2858%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"></th>
+<th class="tableblock halign-left valign-top">Completeness</th>
+<th class="tableblock halign-left valign-top">Style</th>
+<th class="tableblock halign-left valign-top">Community</th>
+<th class="tableblock halign-left valign-top">Feature Support</th>
+<th class="tableblock halign-left valign-top">Auth Support</th>
+<th class="tableblock halign-left valign-top">Version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">py-Trello
+Github Repo: <a href="https://github.com/sarumont/py-trello" class="bare">https://github.com/sarumont/py-trello</a>
+<a href="https://pythonhosted.org/trello/trello.html" class="bare">https://pythonhosted.org/trello/trello.html</a>
+Examples: <a href="https://pythonhosted.org/trello/examples.html" class="bare">https://pythonhosted.org/trello/examples.html</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Complete</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Object oriented</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1. <strong>last commit</strong> - on June 7 2016
+2. <strong>last pull request</strong>- July 7 2016
+3. <strong>Pull requests</strong>: 94
+4. <strong>No. of contributors</strong>: 55</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">All the important and needed functionalities are supported by this library</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OAuth is supported and API Key and token is necessary.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">14</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">py-Trello
+<a href="https://github.com/plish/Trolly" class="bare">https://github.com/plish/Trolly</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Incomplete</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Object oriented</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1. <strong>last commit</strong> - on March 1 2016
+2. <strong>last pull request</strong>- February 25 2016
+3. <strong>Pull requests</strong>: 25
+4. <strong>No. of contributors</strong>: 8</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Trello functionalities are there but no auth support till now.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Library has no auth support.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No Version</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+    </div>
+
+    <!-- End Main Content -->
+
+    <!-- Sidebar -->
+
+    <aside class="large-3 columns">
+
+        <h5>About</h5>
+
+        <p>ALMighty is about providing tools for planning and
+    execution of an idea to production in a highly distributed team. Part of Red Hat Developers
+    Group.</p>
+
+        <h5>Blueprints</h5>
+        <ul>
+        
+            <li>
+                <a href="../blueprints/design_overview.html">Design Overview</a>
+            </li>
+        
+            <li>
+                <a href="../blueprints/model_overview.html">Model Overview</a>
+            </li>
+        
+            <li>
+                <a href="../blueprints/notification.html">Notification</a>
+            </li>
+        
+            <li>
+                <a href="../blueprints/remote_issue_trackers.html">Remote Issue Trackers</a>
+            </li>
+        
+            <li>
+                <a href="../blueprints/scheduler.html">Scheduler</a>
+            </li>
+        
+            <li>
+                <a href="../blueprints/test.html">Test diagram</a>
+            </li>
+        
+            <li>
+                <a href="../blueprints/ux.html">UX Overview</a>
+            </li>
+        
+        </ul>
+
+        <h6>Actions</h6>
+        <ul>
+            <li>
+                <a href="https://github.com/ALMighty/almighty-devdoc/edit/master/_blueprints/remote_issue_trackers.adoc">Edit</a>
+            </li>
+        </ul>
+    </aside>
+
+    <!-- End Sidebar -->
+</div>
+
+<!-- End Main Content and Sidebar -->
+
+<!-- Footer -->
+
+<footer class="row">
+    <div class="large-12 columns">
+        <hr/>
+        <div class="row">
+            <div class="large-12 columns">
+                <p>This is a work in progress.</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+<script src="../js/vendor/jquery.js"></script>
+<script src="../js/vendor/foundation.js"></script>
+<script src="../js/app.js"></script>
+
+</body>
+</html>
