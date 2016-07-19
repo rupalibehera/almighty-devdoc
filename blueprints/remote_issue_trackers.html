@@ -610,6 +610,792 @@ Examples: <a href="https://pythonhosted.org/trello/examples.html" class="bare">h
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="bugzilla">Bugzilla</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Bugzilla exposes its api through xmlrpc protocol</p>
+</div>
+<div id="sync-calls" class="paragraph">
+<p><strong>Sync Calls:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Run an external program to query Jira using REST, check the changes, sync to your application.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>This approach requires you to implement the logic that the issue has been updated</p>
+</li>
+<li>
+<p>Bugzilla allows you to retrive history of a bug</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div id="callback-support" class="paragraph">
+<p><strong>Callback Support:</strong></p>
+</div>
+<div class="paragraph">
+<p>REDHAT Bugzilla Api doesnot support event notification:
+<a href="https://bugzilla.redhat.com/show_bug.cgi?id=978953" class="bare">https://bugzilla.redhat.com/show_bug.cgi?id=978953</a></p>
+</div>
+<div id="query" class="paragraph">
+<p><strong>Query:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Bugzilla supports MYSQL queries.</p>
+</li>
+<li>
+<p>You can save the search as Remembered search and query it.</p>
+</li>
+<li>
+<p>You can query using keyword/text.</p>
+</li>
+</ul>
+</div>
+<div id="individual-lookup" class="paragraph">
+<p><strong>Individual Lookup:</strong></p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes/No</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">User</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes, through user id, real name, email address</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Issue</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes, through issue id or alias</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Comment</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Version/Branch</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Product/ Component</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+</tr>
+</tbody>
+</table>
+<div id="collect-sample-data" class="paragraph">
+<p><strong>Collect Sample Data:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>&gt;&gt;curl --silent --insecure https://bugzilla.redhat.com/xmlrpc.cgi -H "Content-Type: text/xml" -d "&lt;?xml version='1.0' encoding='UTF-8'?&gt;&lt;methodCall&gt;&lt;methodName&gt;Bug.get&lt;/methodName&gt; &lt;params&gt;&lt;param&gt;&lt;value&gt;&lt;struct&gt;&lt;member&gt;&lt;name&gt;ids&lt;/name&gt;&lt;value&gt;575745&lt;/value&gt;&lt;/member&gt;&lt;/struct&gt;&lt;/value&gt;&lt;/param&gt; &lt;/params&gt; &lt;/methodCall&gt;"</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="preprocessor">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><span class="tag">&lt;methodResponse&gt;</span><span class="tag">&lt;params&gt;</span><span class="tag">&lt;param&gt;</span><span class="tag">&lt;value&gt;</span><span class="tag">&lt;struct&gt;</span><span class="tag">&lt;member&gt;</span><span class="tag">&lt;name&gt;</span>faults<span class="tag">&lt;/name&gt;</span><span class="tag">&lt;value&gt;</span><span class="tag">&lt;array&gt;</span><span class="tag">&lt;data</span> <span class="tag">/&gt;</span><span class="tag">&lt;/array&gt;</span><span class="tag">&lt;/value&gt;</span><span class="tag">&lt;/member&gt;</span><span class="tag">&lt;member&gt;</span><span class="tag">&lt;name&gt;</span>bugs<span class="tag">&lt;/name&gt;</span><span class="tag">&lt;value&gt;</span><span class="tag">&lt;array&gt;</span><span class="tag">&lt;data&gt;</span><span class="tag">&lt;value&gt;</span><span class="tag">&lt;struct&gt;</span><span class="tag">&lt;member&gt;</span><span class="tag">&lt;name&gt;</span>priority<span class="tag">&lt;/name&gt;</span><span class="tag">&lt;value&gt;</span><span class="tag">&lt;string&gt;</span>unspecified<span class="tag">&lt;/string&gt;</span><span class="tag">&lt;/value&gt;</span><span class="tag">&lt;/member&gt;</span><span class="tag">&lt;member&gt;</span><span class="tag">&lt;name&gt;</span>cf_category<span class="tag">&lt;/name&gt;</span><span class="tag">&lt;value&gt;</span><span class="tag">&lt;string&gt;</span>---<span class="tag">&lt;/string&gt;</span><span class="tag">&lt;/value&gt;</span><span class="tag">&lt;/member&gt;</span><span class="tag">&lt;member&gt;</span><span class="tag">&lt;name&gt;</span>blocks<span class="tag">&lt;/name&gt;</span><span class="tag">&lt;value&gt;</span><span class="tag">&lt;array&gt;</span><span class="tag">&lt;data</span> <span class="tag">/&gt;</span><span class="tag">&lt;/array&gt;</span><span class="tag">&lt;/value&gt;</span><span class="tag">&lt;/member&gt;</span><span class="tag">&lt;member&gt;</span><span class="tag">&lt;name&gt;</span>creator<span class="tag">&lt;/name&gt;</span><span class="tag">&lt;value&gt;</span><span class="tag">&lt;string&gt;</span>Marc Schoenefeld<span class="tag">&lt;/string&gt;</span><span class="tag">&lt;/value&gt;</span><span class="tag">&lt;/member&gt;</span><span class="tag">&lt;member&gt;</span><span class="tag">&lt;name&gt;</span>last_change_time<span class="tag">&lt;/name&gt;</span><span class="tag">&lt;value&gt;</span><span class="tag">&lt;dateTime.iso8601&gt;</span>20150819T08:44:27<span class="tag">&lt;/dateTime.iso8601&gt;</span><span class="tag">&lt;/value&gt;</span><span class="tag">&lt;/member&gt;</span><span class="tag">&lt;member&gt;</span><span class="tag">&lt;name&gt;</span>cf_ovirt_team<span class="tag">&lt;/name&gt;</span><span class="tag">&lt;value&gt;</span><span class="tag">&lt;string&gt;</span>---<span class="tag">&lt;/string&gt;</span><span class="tag">&lt;/value&gt;</span><span class="tag">&lt;/member&gt;</span><span class="tag">&lt;member&gt;</span><span class="tag">&lt;name&gt;</span>is_cc_accessible<span class="tag">&lt;/name&gt;</span><span class="tag">&lt;value&gt;</span><span class="tag">&lt;boolean&gt;</span>1<span class="tag">&lt;/boolean&gt;</span><span class="tag">&lt;/value&gt;</span><span class="tag">&lt;/member&gt;</span><span class="tag">&lt;member&gt;</span><span class="tag">&lt;name&gt;</span>keywords<span class="tag">&lt;/name&gt;</span><span class="tag">&lt;value&gt;</span><span class="tag">&lt;array&gt;</span><span class="tag">&lt;data&gt;</span><span class="tag">&lt;value&gt;</span><span class="tag">&lt;string&gt;</span>Security<span class="tag">&lt;/string&gt;</span><span class="tag">&lt;/value&gt;</span><span class="tag">&lt;/data&gt;</span><span class="tag">&lt;/array&gt;</span><span class="tag">&lt;/value&gt;</span><span class="tag">&lt;/member&gt;</span><span class="tag">&lt;member&gt;</span><span class="tag">&lt;name&gt;</span>cc<span class="tag">&lt;/name&gt;</span><span class="tag">&lt;value&gt;</span><span class="tag">&lt;array&gt;</span><span class="tag">&lt;data&gt;</span><span class="tag">&lt;value&gt;</span><span class="tag">&lt;string&gt;</span>Andrew John Hughes<span class="tag">&lt;/string&gt;</span><span class="tag">&lt;/value&gt;</span><span class="tag">&lt;value&gt;</span><span class="tag">&lt;string&gt;</span>Andrew Haley<span class="tag">&lt;/string&gt;</span><span class="tag">&lt;/value&gt;</span><span class="tag">&lt;value&gt;</span><span class="tag">&lt;string&gt;</span>Deepak Bhole<span class="tag">&lt;/string&gt;</span><span class="tag">&lt;/value&gt;</span><span class="tag">&lt;value&gt;</span><span class="tag">&lt;string&gt;</span>Jiri Pechanec<span class="tag">&lt;/string&gt;</span><span class="tag">&lt;/value&gt;</span><span class="tag">&lt;value&gt;</span><span class="tag">&lt;string&gt;</span>Red Hat Product Security<span class="tag">&lt;/string&gt;</span><span class="tag">&lt;/value&gt;</span><span class="tag">&lt;/data&gt;</span><span class="tag">&lt;/array&gt;</span><span class="tag">&lt;/value&gt;</span><span class="tag">&lt;/member&gt;</span><span class="tag">&lt;member&gt;</span><span class="tag">&lt;name&gt;</span>url<span class="tag">&lt;/name&gt;</span><span class="tag">&lt;value&gt;</span><span class="tag">&lt;string</span> <span class="tag">/&gt;</span><span class="tag">&lt;/value&gt;</span><span class="tag">&lt;/member&gt;</span><span class="tag">&lt;member&gt;</span><span class="tag">&lt;name&gt;</span>assigned_to<span class="tag">&lt;/name&gt;</span><span class="tag">&lt;value&gt;</span><span class="tag">&lt;string&gt;</span>Red Hat Product Security<span class="tag">&lt;/string&gt;</span><span class="tag">&lt;/value&gt;</span><span class="tag">&lt;/member&gt;</span><span class="tag">&lt;member&gt;</span><span class="tag">&lt;name&gt;</span>groups<span class="tag">&lt;/name&gt;</span><span class="tag">&lt;value&gt;</span><span class="tag">&lt;array&gt;</span><span class="tag">&lt;data</span> <span class="tag">/&gt;</span><span class="tag">&lt;/array&gt;</span><span class="tag">&lt;/value&gt;</span><span class="tag">&lt;/member&gt;</span><span class="tag">&lt;member&gt;</span><span class="tag">&lt;name&gt;</span>see_also<span class="tag">&lt;/name&gt;</span><span class="tag">&lt;value&gt;</span><span class="tag">&lt;array&gt;</span><span class="tag">&lt;data</span> <span class="tag">/&gt;</span><span class="tag">&lt;/array&gt;</span><span class="tag">&lt;/value&gt;</span><span class="tag">&lt;/member&gt;</span><span class="tag">&lt;member&gt;</span><span class="tag">&lt;name&gt;</span>id<span class="tag">&lt;/name&gt;</span><span class="tag">&lt;value&gt;</span><span class="tag">&lt;int&gt;</span>575745<span class="tag">&lt;/int&gt;</span><span class="tag">&lt;/value&gt;</span><span class="tag">&lt;/member&gt;</span><span class="tag">&lt;member&gt;</span><span class="tag">&lt;name&gt;</span>creation_time<span class="tag">&lt;/name&gt;</span><span class="tag">&lt;value&gt;</span><span class="tag">&lt;dateTime.iso8601&gt;</span>20100322T10:21:00<span class="tag">&lt;/dateTime.iso8601&gt;</span><span class="tag">&lt;/value&gt;</span><span class="tag">&lt;/member&gt;</span><span class="tag">&lt;member&gt;</span><span class="tag">&lt;name&gt;</span>whiteboard<span class="tag">&lt;/name&gt;</span><span class="tag">&lt;value&gt;</span><span class="tag">&lt;string&gt;</span>impact=none,source=sun,public=20100330,reported=20100319<span class="tag">&lt;/string&gt;</span><span class="tag">&lt;/value&gt;</span><span class="tag">&lt;/member&gt;</span><span class="tag">&lt;member&gt;</span><span class="tag">&lt;name&gt;</span>qa_contact<span class="tag">&lt;/name&gt;</span><span class="tag">&lt;value&gt;</span><span class="tag">&lt;string</span> <span class="tag">/&gt;</span><span class="tag">&lt;/value&gt;</span><span class="tag">&lt;/member&gt;</span><span class="tag">&lt;member&gt;</span><span class="tag">&lt;name&gt;</span>depends_on<span class="tag">&lt;/name&gt;</span><span class="tag">&lt;value&gt;</span><span class="tag">&lt;array&gt;</span><span class="tag">&lt;data</span> <span class="tag">/&gt;</span><span class="tag">&lt;/array&gt;</span><span class="tag">&lt;/value&gt;</span><span class="tag">&lt;/member&gt;</span><span class="tag">&lt;member&gt;</span><span class="tag">&lt;name&gt;</span>cf_regression_status<span class="tag">&lt;/name&gt;</span><span class="tag">&lt;value&gt;</span><span class="tag">&lt;string&gt;</span>---<span class="tag">&lt;/string&gt;</span><span class="tag">&lt;/value&gt;</span><span class="tag">&lt;/member&gt;</span><span class="tag">&lt;member&gt;</span><span class="tag">&lt;name&gt;</span>docs_contact<span class="tag">&lt;/name&gt;</span><span class="tag">&lt;value&gt;</span><span class="tag">&lt;string</span> <span class="tag">/&gt;</span><span class="tag">&lt;/value&gt;</span><span class="tag">&lt;/member&gt;</span><span class="tag">&lt;member&gt;</span><span class="tag">&lt;name&gt;</span>cf_story_points<span class="tag">&lt;/name&gt;</span><span class="tag">&lt;value&gt;</span><span class="tag">&lt;string&gt;</span>---<span class="tag">&lt;/string&gt;</span><span class="tag">&lt;/value&gt;</span><span class="tag">&lt;/member&gt;</span><span class="tag">&lt;member&gt;</span><span class="tag">&lt;name&gt;</span>resolution<span class="tag">&lt;/name&gt;</span><span class="tag">&lt;value&gt;</span><span class="tag">&lt;string</span> <span class="tag">/&gt;</span><span class="tag">&lt;/value&gt;</span><span class="tag">&lt;/member&gt;</span><span class="tag">&lt;member&gt;</span><span class="tag">&lt;name&gt;</span>classification<span class="tag">&lt;/name&gt;</span><span class="tag">&lt;value&gt;</span><span class="tag">&lt;string&gt;</span>Other<span class="tag">&lt;/string&gt;</span><span class="tag">&lt;/value&gt;</span><span class="tag">&lt;/member&gt;</span><span class="tag">&lt;member&gt;</span><span class="tag">&lt;name&gt;</span>alias<span class="tag">&lt;/name&gt;</span><span class="tag">&lt;value&gt;</span><span class="tag">&lt;array&gt;</span><span class="tag">&lt;data</span> <span class="tag">/&gt;</span><span class="tag">&lt;/array&gt;</span><span class="tag">&lt;/value&gt;</span><span class="tag">&lt;/member&gt;</span><span class="tag">&lt;member&gt;</span><span class="tag">&lt;name&gt;</span>cf_doc_type<span class="tag">&lt;/name&gt;</span><span class="tag">&lt;value&gt;</span><span class="tag">&lt;string&gt;</span>Bug Fix<span class="tag">&lt;/string&gt;</span><span class="tag">&lt;/value&gt;</span><span class="tag">&lt;/member&gt;</span><span class="tag">&lt;member&gt;</span><span class="tag">&lt;name&gt;</span>op_sys<span class="tag">&lt;/name&gt;</span><span class="tag">&lt;value&gt;</span><span class="tag">&lt;string&gt;</span>Linux<span class="tag">&lt;/string&gt;</span><span class="tag">&lt;/value&gt;</span><span class="tag">&lt;/member&gt;</span><span class="tag">&lt;member&gt;</span><span class="tag">&lt;name&gt;</span>cf_crm<span class="tag">&lt;/name&gt;</span><span class="tag">&lt;value&gt;</span><span class="tag">&lt;string</span> <span class="tag">/&gt;</span><span class="tag">&lt;/value&gt;</span><span class="tag">&lt;/member&gt;</span><span class="tag">&lt;member&gt;</span><span class="tag">&lt;name&gt;</span>target_release<span class="tag">&lt;/name&gt;</span><span class="tag">&lt;value&gt;</span><span class="tag">&lt;array&gt;</span><span class="tag">&lt;data&gt;</span><span class="tag">&lt;value&gt;</span><span class="tag">&lt;string&gt;</span>---<span class="tag">&lt;/string&gt;</span><span class="tag">&lt;/value&gt;</span><span class="tag">&lt;/data&gt;</span><span class="tag">&lt;/array&gt;</span><span class="tag">&lt;/value&gt;</span><span class="tag">&lt;/member&gt;</span><span class="tag">&lt;member&gt;</span><span class="tag">&lt;name&gt;</span>status<span class="tag">&lt;/name&gt;</span><span class="tag">&lt;value&gt;</span><span class="tag">&lt;string&gt;</span>NEW<span class="tag">&lt;/string&gt;</span><span class="tag">&lt;/value&gt;</span><span class="tag">&lt;/member&gt;</span><span class="tag">&lt;member&gt;</span><span class="tag">&lt;name&gt;</span>cf_type<span class="tag">&lt;/name&gt;</span><span class="tag">&lt;value&gt;</span><span class="tag">&lt;string&gt;</span>---<span class="tag">&lt;/string&gt;</span><span class="tag">&lt;/value&gt;</span><span class="tag">&lt;/member&gt;</span><span class="tag">&lt;member&gt;</span><span class="tag">&lt;name&gt;</span>cf_documentation_action<span class="tag">&lt;/name&gt;</span><span class="tag">&lt;value&gt;</span><span class="tag">&lt;string&gt;</span>---<span class="tag">&lt;/string&gt;</span><span class="tag">&lt;/value&gt;</span><span class="tag">&lt;/member&gt;</span><span class="tag">&lt;member&gt;</span><span class="tag">&lt;name&gt;</span>summary<span class="tag">&lt;/name&gt;</span><span class="tag">&lt;value&gt;</span><span class="tag">&lt;string&gt;</span>OpenJDK ThreadGroup finalizer allows creation of false root ThreadGroups (6639665)<span class="tag">&lt;/string&gt;</span><span class="tag">&lt;/value&gt;</span><span class="tag">&lt;/member&gt;</span><span class="tag">&lt;member&gt;</span><span class="tag">&lt;name&gt;</span>cf_mount_type<span class="tag">&lt;/name&gt;</span><span class="tag">&lt;value&gt;</span><span class="tag">&lt;string&gt;</span>---<span class="tag">&lt;/string&gt;</span><span class="tag">&lt;/value&gt;</span><span class="tag">&lt;/member&gt;</span><span class="tag">&lt;member&gt;</span><span class="tag">&lt;name&gt;</span>is_open<span class="tag">&lt;/name&gt;</span><span class="tag">&lt;value&gt;</span><span class="tag">&lt;boolean&gt;</span>1<span class="tag">&lt;/boolean&gt;</span><span class="tag">&lt;/value&gt;</span><span class="tag">&lt;/member&gt;</span><span class="tag">&lt;member&gt;</span><span class="tag">&lt;name&gt;</span>platform<span class="tag">&lt;/name&gt;</span><span class="tag">&lt;value&gt;</span><span class="tag">&lt;string&gt;</span>All<span class="tag">&lt;/string&gt;</span><span class="tag">&lt;/value&gt;</span><span class="tag">&lt;/member&gt;</span><span class="tag">&lt;member&gt;</span><span class="tag">&lt;name&gt;</span>severity<span class="tag">&lt;/name&gt;</span><span class="tag">&lt;value&gt;</span><span class="tag">&lt;string&gt;</span>unspecified<span class="tag">&lt;/string&gt;</span><span class="tag">&lt;/value&gt;</span><span class="tag">&lt;/member&gt;</span><span class="tag">&lt;member&gt;</span><span class="tag">&lt;name&gt;</span>cf_environment<span class="tag">&lt;/name&gt;</span><span class="tag">&lt;value&gt;</span><span class="tag">&lt;string</span> <span class="tag">/&gt;</span><span class="tag">&lt;/value&gt;</span><span class="tag">&lt;/member&gt;</span><span class="tag">&lt;member&gt;</span><span class="tag">&lt;name&gt;</span>version<span class="tag">&lt;/name&gt;</span><span class="tag">&lt;value&gt;</span><span class="tag">&lt;array&gt;</span><span class="tag">&lt;data&gt;</span><span class="tag">&lt;value&gt;</span><span class="tag">&lt;string&gt;</span>unspecified<span class="tag">&lt;/string&gt;</span><span class="tag">&lt;/value&gt;</span><span class="tag">&lt;/data&gt;</span><span class="tag">&lt;/array&gt;</span><span class="tag">&lt;/value&gt;</span><span class="tag">&lt;/member&gt;</span><span class="tag">&lt;member&gt;</span><span class="tag">&lt;name&gt;</span>component<span class="tag">&lt;/name&gt;</span><span class="tag">&lt;value&gt;</span><span class="tag">&lt;array&gt;</span><span class="tag">&lt;data&gt;</span><span class="tag">&lt;value&gt;</span><span class="tag">&lt;string&gt;</span>vulnerability<span class="tag">&lt;/string&gt;</span><span class="tag">&lt;/value&gt;</span><span class="tag">&lt;/data&gt;</span><span class="tag">&lt;/array&gt;</span><span class="tag">&lt;/value&gt;</span><span class="tag">&lt;/member&gt;</span><span class="tag">&lt;member&gt;</span><span class="tag">&lt;name&gt;</span>cf_fixed_in<span class="tag">&lt;/name&gt;</span><span class="tag">&lt;value&gt;</span><span class="tag">&lt;string</span> <span class="tag">/&gt;</span><span class="tag">&lt;/value&gt;</span><span class="tag">&lt;/member&gt;</span><span class="tag">&lt;member&gt;</span><span class="tag">&lt;name&gt;</span>is_creator_accessible<span class="tag">&lt;/name&gt;</span><span class="tag">&lt;value&gt;</span><span class="tag">&lt;boolean&gt;</span>1<span class="tag">&lt;/boolean&gt;</span><span class="tag">&lt;/value&gt;</span><span class="tag">&lt;/member&gt;</span><span class="tag">&lt;member&gt;</span><span class="tag">&lt;name&gt;</span>product<span class="tag">&lt;/name&gt;</span><span class="tag">&lt;value&gt;</span><span class="tag">&lt;string&gt;</span>Security Response<span class="tag">&lt;/string&gt;</span><span class="tag">&lt;/value&gt;</span><span class="tag">&lt;/member&gt;</span><span class="tag">&lt;member&gt;</span><span class="tag">&lt;name&gt;</span>target_milestone<span class="tag">&lt;/name&gt;</span><span class="tag">&lt;value&gt;</span><span class="tag">&lt;string&gt;</span>---<span class="tag">&lt;/string&gt;</span><span class="tag">&lt;/value&gt;</span><span class="tag">&lt;/member&gt;</span><span class="tag">&lt;member&gt;</span><span class="tag">&lt;name&gt;</span>is_confirmed<span class="tag">&lt;/name&gt;</span><span class="tag">&lt;value&gt;</span><span class="tag">&lt;boolean&gt;</span>1<span class="tag">&lt;/boolean&gt;</span><span class="tag">&lt;/value&gt;</span><span class="tag">&lt;/member&gt;</span><span class="tag">&lt;member&gt;</span><span class="tag">&lt;name&gt;</span>cf_release_notes<span class="tag">&lt;/name&gt;</span><span class="tag">&lt;value&gt;</span><span class="tag">&lt;string</span> <span class="tag">/&gt;</span><span class="tag">&lt;/value&gt;</span><span class="tag">&lt;/member&gt;</span><span class="tag">&lt;member&gt;</span><span class="tag">&lt;name&gt;</span>cf_verified_branch<span class="tag">&lt;/name&gt;</span><span class="tag">&lt;value&gt;</span><span class="tag">&lt;string</span> <span class="tag">/&gt;</span><span class="tag">&lt;/value&gt;</span><span class="tag">&lt;/member&gt;</span><span class="tag">&lt;/struct&gt;</span><span class="tag">&lt;/value&gt;</span><span class="tag">&lt;/data&gt;</span><span class="tag">&lt;/array&gt;</span><span class="tag">&lt;/value&gt;</span><span class="tag">&lt;/member&gt;</span><span class="tag">&lt;/struct&gt;</span><span class="tag">&lt;/value&gt;</span><span class="tag">&lt;/param&gt;</span><span class="tag">&lt;/params&gt;</span><span class="tag">&lt;/methodResponse&gt;</span></code></pre>
+</div>
+</div>
+<div id="auth-models" class="paragraph">
+<p><strong>Auth models:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>There are 2 authentication models:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Basic authentication</p>
+</li>
+<li>
+<p>Two factor authentication</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Basic Authentication:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>send a HTTP GET request with proper credentials to the endpoint:
++ <a href="https://bugzilla.mozilla.org/rest/login?login=username&amp;password=password" class="bare">https://bugzilla.mozilla.org/rest/login?login=username&amp;password=password</a></p>
+</li>
+<li>
+<p>It returns an id and token</p>
+</li>
+<li>
+<p>Use token in URL.
++ <a href="https://bugzilla.mozilla.org/rest/bug?token=272345-L1KydUNCwq&amp;f1=cf_tracking_firefox31&amp;o1=equals&amp;v1=%2B&amp;include_fields=id" class="bare">https://bugzilla.mozilla.org/rest/bug?token=272345-L1KydUNCwq&amp;f1=cf_tracking_firefox31&amp;o1=equals&amp;v1=%2B&amp;include_fields=id</a></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Two factor authenticatoon:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>If you have two-factor authentication on your bugzilla account, then create a new API key and pass it to each request
++ requests.get('https://bugzilla.mozilla.org/rest/bug', params={'id': '1214433', 'api_key': 'xyz'})</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Cookie authentication is not accepted.</p>
+</li>
+</ul>
+</div>
+<div id="auth-levels" class="paragraph">
+<p><strong>Authorization Level</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Permission to do stuff in Bugzilla are defined by groups and Bugzilla users get membership to certain groups manually or automatically</p>
+</li>
+<li>
+<p>Groups:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>restrict visibility of bugs to a specific set of users</p>
+</li>
+<li>
+<p>Types:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Generic group</p>
+</li>
+<li>
+<p>Product based group</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Administrators</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Permissions</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">who have "editbugs" priviledges</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">can edit all bug fields</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">who have "editkeywords" priviledges</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">can create, destroy, edit keywords</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">who have "editusers" priviledges</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">can create, update, block user profiles</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">who have "canconfirm" priviledges</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">can confirm a bug or mark it as duplicate</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">who have "admin" priviledges</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">can edit fields, groups &#8594; total control over Bugzilla</p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect2">
+<h3 id="bugzilla-golang-libraries">Bugzilla Golang libraries</h3>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2858%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"></th>
+<th class="tableblock halign-left valign-top">Completeness</th>
+<th class="tableblock halign-left valign-top">Style</th>
+<th class="tableblock halign-left valign-top">Community</th>
+<th class="tableblock halign-left valign-top">Feature Support</th>
+<th class="tableblock halign-left valign-top">Auth Support</th>
+<th class="tableblock halign-left valign-top">Version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>bugtraq</strong> <a href="https://github.com/mfojtik/bugtraq" class="bare">https://github.com/mfojtik/bugtraq</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Complete</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Object oriented</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1. <strong>Last commit</strong> - 23 July 2014
+2. <strong>Last pull request</strong>- No PR
+3. <strong>No. of contributors</strong>: 1
+4. <strong>No. of watchers</strong>: 0
+5. <strong>No. of stars</strong>: 0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">uses xmlrp</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes, through username-password</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">It is the first version. No further versions released. Branch &#8594; master</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">moz-go-bugzilla <a href="https://github.com/st3fan/moz-go-bugzilla" class="bare">https://github.com/st3fan/moz-go-bugzilla</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Not complete</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Object oriented</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1. <strong>last commit</strong> - 28 Nov 2013
+2. <strong>last pull request</strong>- No PR
+3. <strong>No. of contributors</strong>: 1
+4. <strong>No. of watchers</strong>: 0
+5. <strong>No. of stars</strong> 0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">custom fields</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">It is the first version. No further versions released. Branch &#8594; master</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">gorgojo <a href="https://github.com/dmacvicar/gorgojo" class="bare">https://github.com/dmacvicar/gorgojo</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">not complete</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">object-oriented</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1. <strong>Last commit</strong>: 14 March 2016
+1. <strong>Last PR</strong>: No PR
+2. <strong>No. of contributors</strong>: 1 contributor
+3. <strong>No.of watchers</strong>: 0 watcher,
+4. <strong>No. of stars</strong>: 0 star</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">get bugs, search bugs</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">It is the first version. No versions further released, Branch &#8594; master</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bugzilla <a href="https://github.com/mkorenkov/bugzilla" class="bare">https://github.com/mkorenkov/bugzilla</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">not complete</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">object-oriented</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1. <strong>Last commit</strong>: 1 November 2015
+<strong>Last PR</strong>: No PR
+<strong>No. of contributors</strong>: 1 contributor
+<strong>No. of watchers</strong>: 2 watchers
+<strong>No. of stars</strong>: 1 star</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">list bugs, lookup bug details using id, add comment to bug</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes, through username and password</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">It is the first version. No versions further released, Branch &#8594; master</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="bugzilla-python-libraries">Bugzilla Python libraries</h3>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2858%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"></th>
+<th class="tableblock halign-left valign-top">Completeness</th>
+<th class="tableblock halign-left valign-top">Style</th>
+<th class="tableblock halign-left valign-top">Community</th>
+<th class="tableblock halign-left valign-top">Feature Support</th>
+<th class="tableblock halign-left valign-top">Auth Support</th>
+<th class="tableblock halign-left valign-top">Version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bugzilla <a href="https://github.com/python-bugzilla/python-bugzilla" class="bare">https://github.com/python-bugzilla/python-bugzilla</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">complete</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">object-oriented</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1. <strong>Last commit</strong>: 8 June 2016
+2. <strong>Last PR</strong>: 26 May 2016
+3. <strong>No. of contributors</strong>: 30 contributors
+4. <strong>No. of watchers</strong>: 5 watchers
+5. <strong>No. of stars</strong>: 17 stars</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">uses xmlrp, create and edit bug, querying, update</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes, through username and password</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Latest version: v1.2.2, Branch &#8594; master</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PyBugz <a href="https://github.com/williamh/pybugz" class="bare">https://github.com/williamh/pybugz</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">complete</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">object-oriented</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1. <strong>Last commit</strong>: 10 July 2016
+2. <strong>Last PR</strong>: 10 Feb 2016
+3. <strong>No. of contributors</strong>: 27 contributors
+4. <strong>No. of watchers</strong>: 11 watchers,
+5. <strong>No. of stars</strong>: 69 stars</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">list details of bug including comments and attachments, downloading/viewing attachments, posting bugs/ comments, modifying existing bug, adding attachment to bug</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes, through username and password</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Latest version: v0.12.x, Branches &#8594; master, 0.10.x, 0.11.x, 0.12.x, refactor</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="jira_library">Jira library</h2>
+<div class="sectionbody">
+<div id="sync-calls" class="paragraph">
+<p><strong>Sync Calls:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Run an external program to query Jira using REST, check the changes, sync to your application.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>This approach requires you to implement the logic that the issue has been updated</p>
+</li>
+<li>
+<p>load on Jira for each polling.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Jira Command Line Interface</p>
+<div class="ulist">
+<ul>
+<li>
+<p>good functionality</p>
+</li>
+<li>
+<p>launching the process every time can be a bit of a burden</p>
+</li>
+<li>
+<p>easy to debug and maintain</p>
+</li>
+<li>
+<p>recommended approach</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div id="callback-support" class="paragraph">
+<p><strong>Callback Support:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>done through the use of jira webhooks which can be created using rest api</p>
+</li>
+<li>
+<p>When webhook is triggered, it sends a JSON callback containing:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>event id</p>
+</li>
+<li>
+<p>timestamp</p>
+</li>
+<li>
+<p>information about entity(issue, project etc) associated with event</p>
+</li>
+<li>
+<p>additional information depending on type of event</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div id="query" class="paragraph">
+<p><strong>Query:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Jira REST API allows you to send a JQL query and recieve a subset of issues.</p>
+</li>
+<li>
+<p>We can:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>perform text search</p>
+</li>
+<li>
+<p>run saved search</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div id="individual-lookup" class="paragraph">
+<p><strong>Individual Lookup:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>User:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>There is no direct method to get all users in Jira REST Api.</p>
+</li>
+<li>
+<p>You can search for a particular user using string.</p>
+</li>
+<li>
+<p><a href="https://servername/rest/api/2/user/search?username=a" class="bare">https://servername/rest/api/2/user/search?username=a</a> this returns all users that have "a" somewhere in their name</p>
+</li>
+<li>
+<p>Workaround:
++ You can get list of all users belonging to a group (although you cannot get list of all groups)
++ You can get list of all users which can be assigned to a project</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Issue:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Yes. We can get all issue data through issue id.
++ /rest/api/2/issue/{issueId}</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Comments:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Yes. We can pull all comments for each issue in each project and checking them one by one using comment id.
++ /rest/api/2/issue/{issueId}/comment/{id}</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div id="collect-sample-data" class="paragraph">
+<p><strong>Collect Sample Data:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>&gt;&gt;curl -u username:password -X GET -H "Content-Type: application/json" https://issues.jboss.org/rest/api/2/issue/12406319?fields=status</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="json">{<span class="key"><span class="delimiter">&quot;</span><span class="content">expand</span><span class="delimiter">&quot;</span></span>:<span class="string"><span class="delimiter">&quot;</span><span class="content">renderedFields,names,schema,transitions,operations,editmeta,changelog</span><span class="delimiter">&quot;</span></span>,<span class="key"><span class="delimiter">&quot;</span><span class="content">id</span><span class="delimiter">&quot;</span></span>:<span class="string"><span class="delimiter">&quot;</span><span class="content">12406319</span><span class="delimiter">&quot;</span></span>,<span class="key"><span class="delimiter">&quot;</span><span class="content">self</span><span class="delimiter">&quot;</span></span>:<span class="string"><span class="delimiter">&quot;</span><span class="content">https://issues.jboss.org/rest/api/2/issue/12406319</span><span class="delimiter">&quot;</span></span>,<span class="key"><span class="delimiter">&quot;</span><span class="content">key</span><span class="delimiter">&quot;</span></span>:<span class="string"><span class="delimiter">&quot;</span><span class="content">ARQ-88</span><span class="delimiter">&quot;</span></span>,<span class="key"><span class="delimiter">&quot;</span><span class="content">fields</span><span class="delimiter">&quot;</span></span>:{<span class="key"><span class="delimiter">&quot;</span><span class="content">status</span><span class="delimiter">&quot;</span></span>:{<span class="key"><span class="delimiter">&quot;</span><span class="content">self</span><span class="delimiter">&quot;</span></span>:<span class="string"><span class="delimiter">&quot;</span><span class="content">https://issues.jboss.org/rest/api/2/status/6</span><span class="delimiter">&quot;</span></span>,<span class="key"><span class="delimiter">&quot;</span><span class="content">description</span><span class="delimiter">&quot;</span></span>:<span class="string"><span class="delimiter">&quot;</span><span class="content">The issue is considered finished, the resolution is correct. Issues which are not closed can be reopened.</span><span class="delimiter">&quot;</span></span>,<span class="key"><span class="delimiter">&quot;</span><span class="content">iconUrl</span><span class="delimiter">&quot;</span></span>:<span class="string"><span class="delimiter">&quot;</span><span class="content">https://issues.jboss.org/images/icons/statuses/closed.png</span><span class="delimiter">&quot;</span></span>,<span class="key"><span class="delimiter">&quot;</span><span class="content">name</span><span class="delimiter">&quot;</span></span>:<span class="string"><span class="delimiter">&quot;</span><span class="content">Closed</span><span class="delimiter">&quot;</span></span>,<span class="key"><span class="delimiter">&quot;</span><span class="content">id</span><span class="delimiter">&quot;</span></span>:<span class="string"><span class="delimiter">&quot;</span><span class="content">6</span><span class="delimiter">&quot;</span></span>,<span class="key"><span class="delimiter">&quot;</span><span class="content">statusCategory</span><span class="delimiter">&quot;</span></span>:{<span class="key"><span class="delimiter">&quot;</span><span class="content">self</span><span class="delimiter">&quot;</span></span>:<span class="string"><span class="delimiter">&quot;</span><span class="content">https://issues.jboss.org/rest/api/2/statuscategory/3</span><span class="delimiter">&quot;</span></span>,<span class="key"><span class="delimiter">&quot;</span><span class="content">id</span><span class="delimiter">&quot;</span></span>:<span class="integer">3</span>,<span class="key"><span class="delimiter">&quot;</span><span class="content">key</span><span class="delimiter">&quot;</span></span>:<span class="string"><span class="delimiter">&quot;</span><span class="content">done</span><span class="delimiter">&quot;</span></span>,<span class="key"><span class="delimiter">&quot;</span><span class="content">colorName</span><span class="delimiter">&quot;</span></span>:<span class="string"><span class="delimiter">&quot;</span><span class="content">green</span><span class="delimiter">&quot;</span></span>,<span class="key"><span class="delimiter">&quot;</span><span class="content">name</span><span class="delimiter">&quot;</span></span>:<span class="string"><span class="delimiter">&quot;</span><span class="content">Done</span><span class="delimiter">&quot;</span></span>}}}</code></pre>
+</div>
+</div>
+<div id="auth-models" class="paragraph">
+<p><strong>Auth models:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>There are 3 authentication models:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Basic authentication</p>
+</li>
+<li>
+<p>Cookie based Authentication</p>
+</li>
+<li>
+<p>OAuth</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Basic authentication:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Authenticate on HTTP using username and password</p>
+</li>
+<li>
+<p>If you simply specify the username, curl will prompt for password. It doesnot give error</p>
+</li>
+<li>
+<p>JIRA permits a default level of access to anonymous users. It doesnot supply a typical authentication challenge.</p>
+</li>
+<li>
+<p>Usage example:</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>curl -D- -u &lt;username:password&gt; -X GET -H "Content-Type: application/json" &lt;url&gt;</pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Cookie based authentication:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>benefits:
++ performance (not having to make multiple authentication calls)</p>
+</li>
+<li>
+<p>disadvantage:
++ security risks (cookie can be hijacked if not handled properly)</p>
+</li>
+<li>
+<p>working:
++ Create a new session. Post user credentials ({ "username": "myuser", "password": "mypassword" }) to session resource (<a href="http://jira.example.com:8090/jira/rest/auth/1/session" class="bare">http://jira.example.com:8090/jira/rest/auth/1/session</a>)
++ Store session object on client
++ Add cookie name and value in header field of your request. Example: headers: {cookie: JSESSIONID=6E3487971234567896704A9EB4AE501F}</p>
+</li>
+<li>
+<p>If cookie has expired, it gives 401 error response</p>
+</li>
+<li>
+<p>This authentication model should be used when script involving REST API calls should be runs only for a few minutes</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>OAuth:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Open Standard of Authorization</p>
+</li>
+<li>
+<p>A way through which users can log in using third party websites</p>
+</li>
+<li>
+<p>Registering Your Application via OAuth:
++ In the "Applications Links administration" screen, create a new application link
++ Enter correct URL to your client
++ If your client can be reached via HTTP, choose Generic Application Type
++ Configure your client to support OAuth</p>
+</li>
+<li>
+<p>How to authenticate via OAuth:
++ obtain request token from Jira
++ authorize this token
++ swap request token with access token
++ make authentication request to REST end point</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Captcha:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>It is triggered after several consecutive failed log in attempts</p>
+</li>
+<li>
+<p>user is supposed to interpret a distorted picture of word and type that word into a text field</p>
+</li>
+<li>
+<p>If captcha has been triggered, you cannot use Jira&#8217;s REST api to authenticate with the JIRA site.</p>
+</li>
+<li>
+<p>how to check if captcha has been triggered?
++ You will get an error response from JIRA with the header "X-Seraph-LoginReason" with value "AUTHENTICATION_DENIED"</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div id="auth-levels" class="paragraph">
+<p><strong>Authorization Level</strong></p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Action</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Permission</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Browse projects and issues</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Anyone</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">View commit information</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Anyone</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Create issues</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Registered User</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Add comments</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Registered User</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">lookup</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Anyone</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Query</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Anyone. No field level security</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Callback</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Register via Jira REST Api. User must have administrators global permission.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect2">
+<h3 id="Jira-golang-libraries">Jira Golang libraries</h3>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2858%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"></th>
+<th class="tableblock halign-left valign-top">Completeness</th>
+<th class="tableblock halign-left valign-top">Style</th>
+<th class="tableblock halign-left valign-top">Community</th>
+<th class="tableblock halign-left valign-top">Feature Support</th>
+<th class="tableblock halign-left valign-top">Auth Support</th>
+<th class="tableblock halign-left valign-top">Version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/Netflix-Skunkworks/go-jira" class="bare">https://github.com/Netflix-Skunkworks/go-jira</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">complete</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">object-oriented</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1. <strong>Last commit</strong>: 9 July 2016
+2. <strong>Last PR</strong>: 31 March 2016
+3. <strong>No. of contributors</strong>: 8 contributors
+4. <strong>No. of watchers</strong>: 47 watchers
+5. <strong>No. of stars</strong>: 146 stars</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">edit issues, create new issues, assign issues</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes, through username and password</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Latest version: v0.1.2, Branch &#8594; master</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/andygrunwald/go-jira" class="bare">https://github.com/andygrunwald/go-jira</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">complete</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">object-oriented</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1. <strong>Last commit</strong>: 19 June 2016
+2. <strong>Last PR:</strong> 8 June 2016
+3. <strong>No. of contributors</strong>: 10 contributors
+4. <strong>No. of watchers</strong>: 4 watchers
+5. <strong>No. of stars</strong>: 29 stars</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">feature to call every endpoint of jira even if it is not directly implemented in this library</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes, through username-password, OAuth, Session Cookie</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">It is the first version. No versions further released. Branch &#8594; master</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/plouc/go-jira-client" class="bare">https://github.com/plouc/go-jira-client</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">complete</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">object-oriented</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1. <strong>Last commit</strong>: 16 June 2016
+2. <strong>Last PR</strong>: 15 June 2016
+3. <strong>No. of contributors</strong>: 5 contributors
+4. <strong>No. of watchers</strong>: 3 watchers,
+5. <strong>No. of stars</strong>: 26 stars</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">search user/issue, get activity feed</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes, through username and password</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">It is the first version. No versions further released. Branch &#8594; master</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/salsita/go-jira" class="bare">https://github.com/salsita/go-jira</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">api incomplete</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">object-oriented</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1. <strong>Last commit</strong>: 28 Jan 2016 2. <strong>Last PR</strong>: No PR 3.<strong>No. of contributors</strong>: 2 contributors 4.<strong>No. of watchers</strong>: 7 watchers 5. <strong>No. of stars</strong>: 6 stars</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">get issue/ project/ user details, supports querying</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes, through username-password, OAuth</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No versions released. It is the first version. Branch &#8594; master</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="Jira-python-libraries">Jira Python libraries</h3>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2858%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"></th>
+<th class="tableblock halign-left valign-top">Completeness</th>
+<th class="tableblock halign-left valign-top">Style</th>
+<th class="tableblock halign-left valign-top">Community</th>
+<th class="tableblock halign-left valign-top">Feature Support</th>
+<th class="tableblock halign-left valign-top">Auth Support</th>
+<th class="tableblock halign-left valign-top">Version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">jira <a href="https://github.com/pycontribs/jira" class="bare">https://github.com/pycontribs/jira</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">complete, stable, some additional features PR are open</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">object-oriented</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1. <strong>Last commit</strong>: 28 June 2016 2. <strong>Last PR</strong>: 9 July 2016 3. <strong>No. of contributors</strong>: 86 contributors 4. <strong>No. of watchers</strong>: 42 watchers 5. <strong>No. of stars</strong>: 209 stars</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">edit issues, create issues, assign issues</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes, through: username-password, OAuth, Kerberos</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Latest version: v0.1.2, Branches &#8594; develop, master</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
 
     </div>
 
