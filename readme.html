@@ -8,7 +8,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>UX Overview</title>
+    <title>almighty-devdoc</title>
 
 
     <meta name="description"
@@ -17,10 +17,10 @@
     <meta name="author" content="Your name goes here"/>
     <meta name="copyright" content="Maybe consider a Creative Commons license"/>
 
-    <link rel="stylesheet" href="../css/foundation.css"/>
-    <link rel="stylesheet" href="../css/font-awesome.css"/>
-    <link rel="stylesheet" href="../css/coderay.css"/>
-    <link rel="stylesheet" href="../css/asciidoctor.css"/>
+    <link rel="stylesheet" href="./css/foundation.css"/>
+    <link rel="stylesheet" href="./css/font-awesome.css"/>
+    <link rel="stylesheet" href="./css/coderay.css"/>
+    <link rel="stylesheet" href="./css/asciidoctor.css"/>
 
     <style>
         html {
@@ -41,8 +41,8 @@
     </div>
     <div class="top-bar-right">
        <ul class="menu">
-           <li><a href="../meetings/agendas.html">meetings</a></li>
-           <li><a href="../">home</a></li>
+           <li><a href="./meetings/agendas.html">meetings</a></li>
+           <li><a href="./">home</a></li>
        </ul>
     </div>
 </div>
@@ -54,18 +54,33 @@
     <!-- Main Blog Content -->
     <div class="large-9 columns" role="content">
 
-        <h1>UX Overview</h1>
-<div class="sect1">
-<h2 id="owner_flow">Owner Flow</h2>
+        <h1>almighty-devdoc</h1>
+<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>This describes the workflow of the project or product manager in ALM.</p>
+<p>Development documentation site for almighty.</p>
 </div>
 <div class="paragraph">
-<p><span class="image"><img src="images/ux/Owner%20Flow.png" alt="Image"></span></p>
+<p>Pushes to this site is automatically published to <a href="http://devdoc.almighty.io" class="bare">http://devdoc.almighty.io</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="how_to_build_it">How to build it</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>pip install blockdiag</code></pre>
+</div>
 </div>
 <div class="paragraph">
-<p>To see full scale click this <a href="ux/Owner%20Flow.png">Image</a>.</p>
+<p>This site is using jekyll, if you already have it installed you can the following:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>bundle install
+bundle exec jekyll build</code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -88,31 +103,31 @@
         <ul>
         
             <li>
-                <a href="../blueprints/design_overview.html">Design Overview</a>
+                <a href="./blueprints/design_overview.html">Design Overview</a>
             </li>
         
             <li>
-                <a href="../blueprints/model_overview.html">Model Overview</a>
+                <a href="./blueprints/model_overview.html">Model Overview</a>
             </li>
         
             <li>
-                <a href="../blueprints/notification.html">Notification</a>
+                <a href="./blueprints/notification.html">Notification</a>
             </li>
         
             <li>
-                <a href="../blueprints/remote_issue_trackers.html">Remote Issue Trackers</a>
+                <a href="./blueprints/remote_issue_trackers.html">Remote Issue Trackers</a>
             </li>
         
             <li>
-                <a href="../blueprints/scheduler.html">Scheduler</a>
+                <a href="./blueprints/scheduler.html">Scheduler</a>
             </li>
         
             <li>
-                <a href="../blueprints/test.html">Test diagram</a>
+                <a href="./blueprints/test.html">Test diagram</a>
             </li>
         
             <li>
-                <a href="../blueprints/ux.html">UX Overview</a>
+                <a href="./blueprints/ux.html">UX Overview</a>
             </li>
         
         </ul>
@@ -120,7 +135,7 @@
         <h6>Actions</h6>
         <ul>
             <li>
-                <a href="https://github.com/ALMighty/almighty-devdoc/edit/master/_blueprints/ux.adoc">Edit</a>
+                <a href="https://github.com/ALMighty/almighty-devdoc/edit/master/readme.adoc">Edit</a>
             </li>
         </ul>
     </aside>
@@ -144,9 +159,9 @@
 </footer>
 
 
-<script src="../js/vendor/jquery.js"></script>
-<script src="../js/vendor/foundation.js"></script>
-<script src="../js/app.js"></script>
+<script src="./js/vendor/jquery.js"></script>
+<script src="./js/vendor/foundation.js"></script>
+<script src="./js/app.js"></script>
 
 </body>
 </html>
