@@ -115,12 +115,12 @@
   <path d="M 224 60 L 224 220" fill="none" stroke="rgb(0,0,0)" />
   <path d="M 224 220 L 248 220" fill="none" stroke="rgb(0,0,0)" />
   <polygon fill="rgb(0,0,0)" points="255,220 248,216 248,224 255,220" stroke="rgb(0,0,0)" />
-  <path d="M 140 60 L 248 60" fill="none" stroke="rgb(0,0,0)" />
-  <polygon fill="rgb(0,0,0)" points="255,60 248,56 248,64 255,60" stroke="rgb(0,0,0)" />
   <path d="M 140 60 L 224 60" fill="none" stroke="rgb(0,0,0)" />
   <path d="M 224 60 L 224 380" fill="none" stroke="rgb(0,0,0)" />
   <path d="M 224 380 L 248 380" fill="none" stroke="rgb(0,0,0)" />
   <polygon fill="rgb(0,0,0)" points="255,380 248,376 248,384 255,380" stroke="rgb(0,0,0)" />
+  <path d="M 140 60 L 248 60" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="255,60 248,56 248,64 255,60" stroke="rgb(0,0,0)" />
   <path d="M 140 60 L 224 60" fill="none" stroke="rgb(0,0,0)" />
   <path d="M 224 60 L 224 140" fill="none" stroke="rgb(0,0,0)" />
   <path d="M 224 140 L 248 140" fill="none" stroke="rgb(0,0,0)" />
