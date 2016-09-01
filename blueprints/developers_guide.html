@@ -8,7 +8,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Scheduler</title>
+    <title>Developer&#8217;s Guide</title>
 
 
     <meta name="description"
@@ -54,71 +54,60 @@
     <!-- Main Blog Content -->
     <div class="large-9 columns" role="content">
 
-        <h1>Scheduler</h1>
-<div id="preamble">
+        <h1>Developer&#8217;s Guide</h1>
+<div class="sect1">
+<h2 id="adding_new_packages">Adding new packages</h2>
 <div class="sectionbody">
-<div class="imageblock">
-<div class="content">
-<img src="images/scheduler-protocol.png" alt="scheduler protocol" width="385" height="281">
+<div class="paragraph">
+<p>ALMighty uses <a href="https://glide.sh">Glide</a> for package management.  To
+install a new package, you can follow these steps.  The
+<code>&lt;PACKAGE_PATH&gt;</code> should be replaced with the actual package path of the
+package. e.g., <code>github.com/robfig/cron</code></p>
 </div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">glide get &lt;PACKAGE_PATH&gt;
+git add glide.yaml glide.lock
+git commit -m &quot;&lt;message&gt;&quot;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If the <code>glide get</code> commands prompts for versions range, select the
+appropriate option.  And most of the time, you can select <code>M</code> (minor)
+as it will ensure non-breaking changes are not going to be retrieved
+(Ref. <a href="http://semver.org" class="bare">http://semver.org</a>).</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="key_features">Key features</h2>
+<h2 id="faq">FAQ</h2>
 <div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>Time based callbacks</p>
-</li>
-<li>
-<p>Interval</p>
-</li>
-<li>
-<p>'Global' system database</p>
-</li>
-<li>
-<p>REST interface</p>
-</li>
-</ul>
+<div class="sect2">
+<h3 id="how_to_see_the_sql_query_used_by_gorm">How to see the SQL query used by Gorm?</h3>
+<div class="paragraph">
+<p>Add <code>Debug()</code> function call before  <code>Save()</code>, <code>Create()</code> etc.</p>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="usage_area">Usage area</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>Update of external issues</p>
-</li>
-</ul>
+<div class="paragraph">
+<p>Two examples from ALMighty code:</p>
 </div>
 <div class="listingblock">
-<div class="title">Schedule</div>
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="json">{
-        <span class="key"><span class="delimiter">&quot;</span><span class="content">trigger</span><span class="delimiter">&quot;</span></span>: {
-                <span class="key"><span class="delimiter">&quot;</span><span class="content">interval</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">30m</span><span class="delimiter">&quot;</span></span>
-        },
-        <span class="key"><span class="delimiter">&quot;</span><span class="content">target</span><span class="delimiter">&quot;</span></span>: {
-                <span class="key"><span class="delimiter">&quot;</span><span class="content">url</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">http://registrar.org/api/batch_update</span><span class="delimiter">&quot;</span></span>,
-                <span class="key"><span class="delimiter">&quot;</span><span class="content">body</span><span class="delimiter">&quot;</span></span>: {
-                        <span class="key"><span class="delimiter">&quot;</span><span class="content">auth_key</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">xyzd</span><span class="delimiter">&quot;</span></span>,
-                        <span class="key"><span class="delimiter">&quot;</span><span class="content">query</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">project = 'a'</span><span class="delimiter">&quot;</span></span>
-                }
-        }
-}</code></pre>
+<pre class="CodeRay highlight"><code data-lang="go"><span class="keyword">if</span> err := tx.Debug().Create(&amp;tq).Error; err != <span class="predefined-constant">nil</span> {
+...
+<span class="keyword">if</span> err := tx.Debug().Save(&amp;newTq).Error; err != <span class="predefined-constant">nil</span> {</code></pre>
 </div>
 </div>
-<div class="listingblock">
-<div class="title">InvokeSchedule GET <a href="http://registrar.org/api/batch_update" class="bare">http://registrar.org/api/batch_update</a></div>
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="json">{
-        <span class="key"><span class="delimiter">&quot;</span><span class="content">auth_key</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">xyzd</span><span class="delimiter">&quot;</span></span>,
-        <span class="key"><span class="delimiter">&quot;</span><span class="content">query</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">project = 'a'</span><span class="delimiter">&quot;</span></span>
-}</code></pre>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+This debug function call should not be committed and pushed to upstream.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -178,7 +167,7 @@
         <h6>Actions</h6>
         <ul>
             <li>
-                <a href="https://github.com/ALMighty/almighty-devdoc/edit/master/_blueprints/scheduler.adoc">Edit</a>
+                <a href="https://github.com/ALMighty/almighty-devdoc/edit/master/_blueprints/developers_guide.adoc">Edit</a>
             </li>
         </ul>
     </aside>
