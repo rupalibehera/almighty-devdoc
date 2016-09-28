@@ -1,0 +1,336 @@
+
+
+
+<!doctype html>
+<!--[if IE 9]>
+<html class="lt-ie10" lang="en"> <![endif]-->
+<html class="no-js" lang="en" data-useragent="Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Almighty Build stories</title>
+
+
+    <meta name="description"
+          content="Update what your Blog is about in this section"/>
+
+    <meta name="author" content="Your name goes here"/>
+    <meta name="copyright" content="Maybe consider a Creative Commons license"/>
+
+    <link rel="stylesheet" href="../css/foundation.css"/>
+    <link rel="stylesheet" href="../css/font-awesome.css"/>
+    <link rel="stylesheet" href="../css/coderay.css"/>
+    <link rel="stylesheet" href="../css/asciidoctor.css"/>
+
+    <style>
+        html {
+            overflow-y: scroll;
+        }
+    </style>
+</head>
+<body>
+
+
+<!-- Nav Bar -->
+
+<div class="top-bar">
+    <div class="top-bar-left">
+        <ul class="menu">
+            <li class="menu-text">almighty</li>
+        </ul>
+    </div>
+    <div class="top-bar-right">
+       <ul class="menu">
+           <li><a href="../ux/ux-overview.html">ux designs</a></li>
+           <li><a href="../meetings/agendas.html">meetings</a></li>
+           <li><a href="../">home</a></li>
+       </ul>
+    </div>
+</div>
+<!-- End Nav -->
+
+<!-- Main Page Content and Sidebar -->
+
+<div class="row">
+    <!-- Main Blog Content -->
+    <div class="large-9 columns" role="content">
+
+        <h1>Almighty Build stories</h1>
+<div class="sect1">
+<h2 id="entity_types">Entity Types</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Build Job (Configuration)</p>
+</li>
+<li>
+<p>Build Execution (a run)</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Run Parameters</p>
+</li>
+<li>
+<p>Build Results</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Result Status</p>
+<div class="ulist">
+<ul>
+<li>
+<p>SUCCESS</p>
+</li>
+<li>
+<p>FAILURE</p>
+</li>
+<li>
+<p>ERROR</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Reports</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Code Coverage Reports</p>
+</li>
+<li>
+<p>Test Reports</p>
+</li>
+<li>
+<p>Publish Reports (ie. created binary artifact, pushed to artifact repository)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>..n artifacts with known types</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="actions">Actions</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>CRUD Build Job (Do we expose this to the user?  Handle for them?  Handled by something else?)</p>
+</li>
+<li>
+<p>Trigger Build Execution</p>
+</li>
+<li>
+<p>Cancel Build Execution</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="relationships">Relationships</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Build Job N:N Repository/Codebase</p>
+</li>
+<li>
+<p>Build Job 1:N Build Execution</p>
+</li>
+<li>
+<p>Build Execution 1:N Source Commits</p>
+</li>
+<li>
+<p>Build Execution 1:1 Source Build Request</p>
+</li>
+<li>
+<p>Build Execution N:1 Source PR</p>
+</li>
+<li>
+<p>Build Execution N:N Issues</p>
+</li>
+<li>
+<p>Build Execution 1:N Deployment</p>
+</li>
+<li>
+<p>Build Execution 1:N Build Execution</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="user_stories">User Stories</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>As a user I would like to create an issue based on a failing test result</p>
+</div>
+<div class="paragraph">
+<p>As a user I would like to see which Build a particular Issue was part of</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Commit msg scan</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Build branch / PR</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>As a user I would like to see the status of my build</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Failed / In Progress ..</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>As a user I would like to manually trigger a build</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>An Action</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>As a user I would like to create a new issue from a failed build</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>A ‘Reverse’ Action</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>As a user I would like to see my current builds activity</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Live view</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>As a user I would like to see which build is deployed in production</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Link from Build to Deployment</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>As a user I would like to see the state of a builds test results and how it relates to my test plan</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Test result processing / matching</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>As a user I would like to be able to query for:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Issues included in a given build?</p>
+</li>
+<li>
+<p>Issues resolved since last deployment?</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+    </div>
+
+    <!-- End Main Content -->
+
+    <!-- Sidebar -->
+
+    <aside class="large-3 columns">
+
+        <h5>About</h5>
+
+        <p>ALMighty is about providing tools for planning and
+    execution of an idea to production in a highly distributed team. Part of Red Hat Developers
+    Group.</p>
+
+        <h5>Blueprints</h5>
+        <ul>
+        
+            <li>
+                <a href="../blueprints/design_overview.html">Design Overview</a>
+            </li>
+        
+            <li>
+                <a href="../blueprints/developers_guide.html">Developer&#8217;s Guide</a>
+            </li>
+        
+            <li>
+                <a href="../blueprints/model_overview.html">Model Overview</a>
+            </li>
+        
+            <li>
+                <a href="../blueprints/notification.html">Notification</a>
+            </li>
+        
+            <li>
+                <a href="../blueprints/remote_issue_trackers.html">Remote Issue Trackers</a>
+            </li>
+        
+            <li>
+                <a href="../blueprints/scheduler.html">Scheduler</a>
+            </li>
+        
+            <li>
+                <a href="../blueprints/test.html">Test diagram</a>
+            </li>
+        
+        </ul>
+
+        <h6>Actions</h6>
+        <ul>
+            <li>
+                <a href="https://github.com/ALMighty/almighty-devdoc/edit/master/design/build_service.adoc">Edit</a>
+            </li>
+        </ul>
+    </aside>
+
+    <!-- End Sidebar -->
+</div>
+
+<!-- End Main Content and Sidebar -->
+
+<!-- Footer -->
+
+<footer class="row">
+    <div class="large-12 columns">
+        <hr/>
+        <div class="row">
+            <div class="large-12 columns">
+                <p>This is a work in progress.</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+<script src="../js/vendor/jquery.js"></script>
+<script src="../js/vendor/foundation.js"></script>
+<script src="../js/app.js"></script>
+
+</body>
+</html>
