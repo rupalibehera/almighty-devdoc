@@ -1,0 +1,60 @@
+= Build SPI =
+
+== Types ==
+```go
+type BuildSourceEnumType int
+const (
+	Git BuildSourceEnumType = iota
+	// SVN
+)
+
+type BuildSourceType struct {
+	Type BuildSourceEnumType
+}
+
+type BuildConfig struct {
+	BuildSource struct {
+		Type BuildSourceEnumType
+		Git struct {
+			URI string
+			ref string
+			httpProxy string
+			httpsProxy string
+		}
+		Target struct {
+			URI string
+			Token string
+			Namespace string
+		}
+		Environment []struct {
+			key string
+			value string
+		}
+		Secrets []struct {
+			key string
+			value string
+		}
+	}
+}
+```
+
+== Methods ==
+```go
+func Create(bc BuildConfig) {}
+
+func Remove(bc BuildConfig) {}
+
+func Update(bc BuildConfig) {}
+
+func Delete(bc BuildConfig) {}
+
+func StartBuild() {}
+
+func CancelBuild() {}
+
+func GetStages() {}
+
+func GetStatus() {}
+
+func GetLogs() {}
+```
