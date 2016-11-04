@@ -1,0 +1,50 @@
+swagger: '2.0'
+
+info:
+  version: "0.0.0"
+  title: Build SPI
+
+definitions:
+  buildconfig:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+      name:
+        type: string
+
+parameters:
+  BuildConfigParam:
+    name: buildconfig
+    in: body
+    description: Size of array
+    required: true
+    schema:
+      $ref: '#/definitions/buildconfig'
+
+paths:
+  /builds/create:
+    post:
+      description: "Creates Build."
+      parameters:
+        - $ref: '#/parameters/BuildConfigParam'
+
+      # Expected responses for this operation:
+      responses:
+        # Response code
+        200:
+          description: Successful response
+          # A schema describing your response object.
+          # Use JSON Schema format
+          schema:
+            title: ArrayOfPersons
+            type: array
+            items:
+              title: Person
+              type: object
+              properties:
+                name:
+                  type: string
+                single:
+                  type: boolean
